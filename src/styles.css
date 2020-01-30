@@ -1,8 +1,86 @@
 /* add css styles here (optional) */
 
-.test {
-  display: inline-block;
-  margin: 2em auto;
-  border: 2px solid #000;
-  font-size: 2em;
+section {
+  clear: both;
+  position: relative;
+}
+
+.blueprintCanvas {
+  background-color: #3177C6;
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+
+.viewParams {
+  min-height: 23em;
+  overflow: hidden;
+  position: relative;
+}
+
+.grid {
+  height: 100%; 
+  overflow: visible;
+  position: absolute;
+  width: 100%; 
+}
+
+.gridLine1 {
+  stroke: #5B9DE3;
+  opacity: 0.6;
+}
+
+.gridLine10 {
+  stroke: #5B9DE3;
+  opacity: 0.8;
+}
+
+.view {
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.viewSVGContainer {
+  margin: 2em;
+}
+
+
+#rendering-options-menu .view-controls {
+  letter-spacing: 1px;
+  font-variant: small-caps;
+  color: #777
+}
+
+#rendering-options-menu #measurement {
+  padding-bottom: .5em;
+  color: #333;
+}
+
+#rendering-options-menu .view-controls .zoom-unit {
+  float: right;
+}
+
+#rendering-options-menu .view-controls div {
+  clear: right;
+}
+
+.collapse-rendering-options #rendering-options-menu, .collapse-insert-menu #insert-menu {
+  display: none;
+}
+
+.param-active #rendering-options-menu {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.param-active #rendering-options-menu > div > div, .param-active #params-link {
+  visibility: hidden;
+}
+
+.param-active #rendering-options-menu > div > div.active, .param-active #rendering-options-menu #measurement {
+  visibility: visible;
+  color: #0ff;
+  text-shadow: 0 0 1em rgba(0,0,0,.5);
 }
