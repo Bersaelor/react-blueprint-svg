@@ -4,10 +4,13 @@
 
 import * as React from 'react'
 import styles from './styles.css'
+import convert from 'react-from-dom';
 
 export type Props = { svg: string }
 
 const Blueprint = ({ svg }: Props) => {
+
+  const svgNode = convert(svg)
 
   return <section className={styles.blueprintCanvas}>
 
@@ -36,7 +39,7 @@ const Blueprint = ({ svg }: Props) => {
     <div className={styles.viewParams}>
       <div className={`${styles.view} noselect`} touch-action="none">
         <div id="view-svg-container">
-          {svg}
+          {svgNode}
         </div>
         <svg id="pointers" xmlns="http://www.w3.org/2000/svg"></svg>
         <div id="touch-shield"></div>
