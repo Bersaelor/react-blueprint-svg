@@ -22,7 +22,11 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
-    "react-from-dom": "^0.3.1"
+    "i18next": "^19.1.0",
+    "i18next-browser-languagedetector": "^4.0.1",
+    "makerjs": "^0.17.0",
+    "react-from-dom": "^0.3.1",
+    "react-i18next": "^11.3.1"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",

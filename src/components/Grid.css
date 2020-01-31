@@ -1,0 +1,16 @@
+.grid {
+    height: 100%; 
+    overflow: visible;
+    position: absolute;
+    width: 100%; 
+  }
+  
+  .gridLine1 {
+    stroke: #5B9DE3;
+    opacity: 0.6;
+  }
+  
+  .gridLine10 {
+    stroke: #5B9DE3;
+    opacity: 0.8;
+  }

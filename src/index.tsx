@@ -3,54 +3,45 @@
  */
 
 import * as React from 'react'
-import styles from './styles.css'
 import convert from 'react-from-dom';
+import Grid from './components/Grid'
+import Statusbar from './components/Statusbar'
+import styles from './styles.css'
+import i18n from './localization/i18n';
+
+import { I18nextProvider } from 'react-i18next';
 
 export type Props = { svg: string }
 
 const Blueprint = ({ svg }: Props) => {
 
+  const [zoom] = React.useState(1);
+
   const svgNode = convert(svg)
 
-  return <section className={styles.blueprintCanvas}>
+  return <I18nextProvider i18n={i18n}>
+    <section className={styles.blueprintCanvas}>
 
-    <svg className={styles.grid}>
-      <defs>
-        <pattern id="pattern1" x="0" y="0" width=".1" height=".1">
-          <line x1="0" y1="0" x2="0" y2="100%" className={styles.gridLine1}></line>
-          <line x1="0" y1="0" x2="100%" y2="0" className={styles.gridLine1}></line>
-        </pattern>
-        <pattern id="pattern10" x="0" y="0" width="1" height="1">
-          <line x1="0" y1="0" x2="0" y2="100%" className={styles.gridLine10}></line>
-          <line x1="0" y1="0" x2="100%" y2="0" className={styles.gridLine10}></line>
-        </pattern>
-        <pattern id="gridPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse" patternTransform="translate(0,0)">
-          <rect id="gridPatternFill" fill="url(#pattern1)" width="100" height="100" x="0" y="0"></rect>
-          <rect fill="url(#pattern10)" width="100%" height="100%" x="0" y="0"></rect>
-        </pattern>
-      </defs>
-      <rect fill="url(#gridPattern)" width="100%" height="100%" x="0" y="0"></rect>
-      <g id="crosshairs">
-        <line x1="-100%" x2="100%" y1="0" y2="0"></line>
-        <line x1="0" x2="0" y1="-100%" y2="100%"></line>
-      </g>
-    </svg>
+      <Grid />
 
-    <div className={styles.viewParams}>
-      <div className={`${styles.view} noselect`} touch-action="none">
-        <div id="view-svg-container">
-          {svgNode}
+      <div className={styles.viewParams}>
+        <div className={`${styles.view} noselect`} touch-action="none">
+          <div id="view-svg-container">
+            {svgNode}
+          </div>
+          <svg className={styles.pointers} xmlns="http://www.w3.org/2000/svg"></svg>
+          <div className={styles.touchShield}></div>
         </div>
-        <svg id="pointers" xmlns="http://www.w3.org/2000/svg"></svg>
-        <div id="touch-shield"></div>
+        <div id="rendering-options-menu" className={`${styles.view} noselect`}>
+          <div id="params"></div>
+        </div>
       </div>
-      <div id="rendering-options-menu" className={`${styles.view} noselect`}>
-        <div id="params"></div>
-      </div>
-    </div>
-    <div id="notes"></div>
+      <div id="notes"></div>
 
-  </section>
+      <Statusbar point={[0, 1]} zoom={zoom} />
+
+    </section>
+  </I18nextProvider>
 }
 
 export default Blueprint

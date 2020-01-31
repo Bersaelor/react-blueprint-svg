@@ -2,7 +2,7 @@ import makerjs from 'makerjs';
 
 function SmileModel(span, teeth, droop, dainty, gaze, heady) {
 
-	if (arguments.length == 0) {
+	if (arguments.length === 0) {
 		var defaultValues = makerjs.kit.getParameterValues(SmileModel);
         span = defaultValues.shift();
         teeth = defaultValues.shift();

@@ -17,23 +17,6 @@ section {
   position: relative;
 }
 
-.grid {
-  height: 100%; 
-  overflow: visible;
-  position: absolute;
-  width: 100%; 
-}
-
-.gridLine1 {
-  stroke: #5B9DE3;
-  opacity: 0.6;
-}
-
-.gridLine10 {
-  stroke: #5B9DE3;
-  opacity: 0.8;
-}
-
 .view {
   color: #fff;
   position: absolute;
@@ -83,4 +66,21 @@ section {
   visibility: visible;
   color: #0ff;
   text-shadow: 0 0 1em rgba(0,0,0,.5);
+}
+
+svg.pointers, .touchShield {
+  display: none;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.touchShield {
+  background-color: transparent;
+}
+
+.pointing svg.pointers, .pointing .touchShield{
+  display: block;
 }
