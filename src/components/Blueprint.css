@@ -1,8 +1,78 @@
 /* add css styles here (optional) */
 
-section {
+
+.view {
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+header, section {
   clear: both;
   position: relative;
+}
+
+header {
+  margin-bottom: 1em;
+  padding-top: 1em;
+}
+
+header h1 {
+  font-size: 24px;
+  font-weight: normal;
+  color: #aaa;
+  line-height: 18px;
+  text-transform: lowercase;
+  letter-spacing: 2px;
+  display: inline;
+}
+
+.renderingOptionsMenu, .renderingOptionsTop {
+  width: 14em;
+  padding: .5em 1em 1em 1em;
+  margin: 1em;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #555;
+  box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+}
+
+.renderingOptionsTop {
+  position: absolute;
+  right: 0;
+  bottom: -30px;
+  padding-bottom: 30px;
+  margin-bottom: 0;
+  border-bottom-color: #fff;
+  text-align: right;
+}
+
+.collapsedRenderingOptionsTop {
+  background-color: transparent;
+  border-color: transparent;
+  bottom: 0;
+  padding-bottom: 0;
+  box-shadow: none;
+}
+
+.renderOptionsButton {
+  background-color: #fff;
+  color: #555;
+  border: none;
+  outline: none;
+  font-size: medium;
+  padding-right: 0;
+}
+
+.renderingOptionsMenu {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+  position: relative;
+  float: right;
 }
 
 .blueprintCanvas {
@@ -15,15 +85,6 @@ section {
   min-height: 23em;
   overflow: hidden;
   position: relative;
-}
-
-.view {
-  color: #fff;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
 }
 
 .viewSVGContainer {

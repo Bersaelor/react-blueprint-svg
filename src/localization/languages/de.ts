@@ -1,3 +1,4 @@
 export default {
-	"statusbar.zoom": "Zoom:"
+	"statusbar.zoom": "Zoom:",
+	"blueprint.renderingOptions": "Optionen"
 };
