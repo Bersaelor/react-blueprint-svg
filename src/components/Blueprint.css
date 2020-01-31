@@ -30,7 +30,7 @@ header h1 {
   display: inline;
 }
 
-.renderingOptionsMenu, .renderingOptionsTop {
+.renderingOptionsTop {
   width: 14em;
   padding: .5em 1em 1em 1em;
   margin: 1em;
@@ -65,14 +65,6 @@ header h1 {
   outline: none;
   font-size: medium;
   padding-right: 0;
-}
-
-.renderingOptionsMenu {
-  border-top: none;
-  padding-top: 0;
-  margin-top: 0;
-  position: relative;
-  float: right;
 }
 
 .blueprintCanvas {
