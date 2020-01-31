@@ -42,7 +42,7 @@ const Blueprint = ({ svg }: Props) => {
     </header>
 
     <section className={styles.blueprintCanvas}>
-      <Grid />
+      {options.showGrid ? <Grid /> : null}
 
       <div className={styles.viewParams}>
         <div className={`${styles.view} noselect`} touch-action="none">
