@@ -38,5 +38,6 @@ export default {
       clean: true
     }),
     commonjs()
-  ]
+  ],
+  external: ['react-redux'],
 }
