@@ -39,21 +39,22 @@ const zoomFactor = 0.005
 const zoomLimit = { min: 0.0001, max: 10000 }
 
 export default (state = initialState, action: any) => {
-    console.log("action: ", action)
     switch (action.type) {
         case MOUSE_WHEEL:
             var newZoom = state.view.zoom - action.delta * zoomFactor * state.view.zoom
             if (newZoom < zoomLimit.min) newZoom = zoomLimit.min
             else if (newZoom > zoomLimit.max) newZoom = zoomLimit.max
-            console.log("wheel.deltaY: ", action.delta, " , newZoom: ", newZoom); 
+            const newOptions = state.options.fitOnScreen && newZoom !== 1 ? { ...state.options, fitOnScreen: false } : state.options
             return { 
-                ...state,
+                options: newOptions,
                 view: { ...state.view, zoom: newZoom}
             }
         case TOGGLE_FIT_SCREEN:
+            const newFitOnScreen = !state.options.fitOnScreen
+            const newViewOptions = newFitOnScreen ? { ...state.view, zoom: 1} : state.view
             return { 
-                ...state,
-                options: { ...state.options, fitOnScreen: !state.options.fitOnScreen}
+                view: newViewOptions,
+                options: { ...state.options, fitOnScreen: newFitOnScreen}
             }
         case TOGGLE_GRID:
             return { 
