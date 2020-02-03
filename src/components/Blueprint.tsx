@@ -16,14 +16,8 @@ import { useTranslation } from "react-i18next";
 
 export type Props = { 
   svg: string
-}
-
-interface StateProps {
   options: IOptions
   zoom: number
-}
-
-interface DispatchProps {
   onMouseWheel: (delta: number) => void,
 }
 
@@ -35,7 +29,7 @@ interface SVGProps {
   children: any[]
 }
 
-const Blueprint = ({ svg, zoom, options, onMouseWheel }: Props & StateProps & DispatchProps) => {
+const Blueprint = ({ svg, zoom, options, onMouseWheel }: Props) => {
 
   const [measurement] = useState("units");
   const [isExpanded, setIsExpanded] = useState(false);

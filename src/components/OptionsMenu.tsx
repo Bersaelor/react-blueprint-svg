@@ -17,21 +17,19 @@ import { useTranslation } from "react-i18next";
 
 export type Props = {
     measurement: string
-}
-
-interface StateProps {
     options: IOptions
     zoom: number
-}
-
-interface DispatchProps {
     toggleFitScreen: () => void,
     toggleGrid: () => void,
     togglePathFlow: () => void,
     togglePathNames: () => void,
 }
 
-const OptionsMenu = ({ measurement, zoom, options, toggleFitScreen, toggleGrid, togglePathFlow, togglePathNames }: Props & StateProps & DispatchProps) => {
+const OptionsMenu = ({ 
+    measurement, 
+    zoom, options,
+    toggleFitScreen, toggleGrid, togglePathFlow, togglePathNames 
+}: Props) => {
 
     const { t, i18n } = useTranslation()
 
