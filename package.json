@@ -1,7 +1,7 @@
 {
   "name": "react-blueprint-svg",
   "version": "1.0.0",
-  "description": "Pannable, zoomable SVG with menu of displaying options.",
+  "description": "Pannable, zoomable SVG with menu of displaying options inspired by maker.js.",
   "author": "Bersaelor",
   "license": "MIT",
   "repository": "Bersaelor/react-blueprint-svg",

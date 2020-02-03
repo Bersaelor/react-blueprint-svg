@@ -10,6 +10,15 @@
   left: 0;
 }
 
+.view svg {
+  overflow: visible;
+}
+
+.view svg g path {
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
 header, section {
   clear: both;
   position: relative;

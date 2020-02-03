@@ -1,6 +1,6 @@
 # react-blueprint-svg
 
-> Pannable, zoomable SVG with menu of displaying options.
+> Pannable, zoomable SVG with menu of displaying options inspired by [maker.js](https://maker.js.org).
 
 [![NPM](https://img.shields.io/npm/v/react-blueprint-svg.svg)](https://www.npmjs.com/package/react-blueprint-svg) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
