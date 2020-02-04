@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {createContext, useReducer, FunctionComponent} from 'react';
+import reducer from './reducer'
+import { ActionType } from './actions'
 
 export type IOptions = {
     fitOnScreen: boolean
@@ -30,23 +32,18 @@ const initialState: RootState = {
 }
 
 const store = createContext(initialState);
-const { Provider } = store;
+const dispatchStore: React.Context<React.Dispatch<ActionType>>  = createContext({}) as any 
 
 type ProviderProps = {}
 
 const StateProvider: FunctionComponent<ProviderProps> = ({ children }) => {
-    const [state, dispatch] = useReducer((state: RootState, action: any) => {
-        switch (action.type) {
-            case 'action description':
-                const newState = state
-                return newState;
-            default:
-                throw new Error();
-        };
-    }, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
-    const value: any = { state, dispatch }
-    return <Provider value={value}>{children}</Provider>;
+    return <store.Provider value={state}>
+        <dispatchStore.Provider value={dispatch}>
+            {children}
+        </dispatchStore.Provider>
+    </store.Provider>;
 };
 
-export { store, StateProvider }
+export { store, dispatchStore, StateProvider }
