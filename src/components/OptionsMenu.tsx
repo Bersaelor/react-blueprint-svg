@@ -5,6 +5,7 @@
 import * as React from 'react'
 import styles from './OptionsMenu.css'
 import { useTranslation } from "react-i18next";
+import { store } from '../store';
 
 export type IOptions = {
     fitOnScreen: boolean
@@ -20,6 +21,9 @@ export type Props = {
 }
 
 const OptionsMenu = ({ measurement, zoom, options, setOptions}: Props) => {
+    const globalState = React.useContext(store)
+
+    console.log("globalState: ", globalState)
 
     const { t, i18n } = useTranslation()
 
