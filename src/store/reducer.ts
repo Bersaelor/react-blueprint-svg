@@ -1,20 +1,33 @@
 import { ActionType } from './actions'
+import { RootState } from './state'
 
-import { RootState } from './index'
-
-const zoomFactor = 0.005
+const wheelZoomDelta = 0.1
 const zoomLimit = { min: 0.0001, max: 10000 }
 
 export default (state: RootState, action: ActionType) => {
     switch (action.type) {
         case 'MOUSE_WHEEL':
-            var newZoom = state.view.zoom - action.delta * zoomFactor * state.view.zoom
+            var sign = action.delta > 0 ? 1 : -1
+            var newZoom = state.view.zoom * (1 + sign * wheelZoomDelta)
             if (newZoom < zoomLimit.min) newZoom = zoomLimit.min
             else if (newZoom > zoomLimit.max) newZoom = zoomLimit.max
             const newOptions = state.options.fitOnScreen && newZoom !== 1 ? { ...state.options, fitOnScreen: false } : state.options
             return {
                 options: newOptions,
                 view: { ...state.view, zoom: newZoom }
+            }
+        case 'MOUSE_MOVE':
+            let event = action.event
+            if (!event.clientX || !event.clientY) return state 
+            var point = [event.clientX, event.clientY]
+            let target = event.target as any
+            if (target && target.getBoundingClientRect) {
+                let boundBox = (event.target as any).getBoundingClientRect()
+                point = [point[0] - boundBox.x, point[1] - boundBox.y]
+            } 
+            return {
+                options: state.options,
+                view: { ...state.view, cursor: point }
             }
         case 'TOGGLE_FIT_SCREEN':
             const newFitOnScreen = !state.options.fitOnScreen

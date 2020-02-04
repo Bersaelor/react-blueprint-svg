@@ -32,17 +32,18 @@ const Blueprint = ({ svg }: Props) => {
   const { t } = useTranslation()
  
   const svgStyle = {
-    marginLeft: 70,
-    marginTop: 70
+    marginLeft: view.margin[0],
+    marginTop: view.margin[1]
   }
 
   const width = 100 * view.zoom
   const height = 100 * view.zoom
 
+  console.log("Rerendering Blueprint")
+
   useEffect(() => {
     var svgNode = convert(svg) as React.ReactElement<SVGProps, any>
     setSVGNode(svgNode)
-    console.log("Converted svg string to ", svgNode)
   }, [svg])
 
   return <>
@@ -52,13 +53,14 @@ const Blueprint = ({ svg }: Props) => {
       </div>
     </header>
 
-    <section
-      onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY }) }
-      className={styles.blueprintCanvas}
-    >
+    <section className={styles.blueprintCanvas} >
       {options.showGrid ? <Grid /> : null}
 
-      <div className={styles.viewParams}>
+      <div
+        className={styles.viewParams}
+        onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
+        onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', event: e })} }
+      >
         <div className={`${styles.view} noselect`} touch-action="none">
           <div id="view-svg-container">
             {svgNode ? <svg {...svgNode.props} width={width} height={height} style={svgStyle} /> : null}
@@ -69,7 +71,7 @@ const Blueprint = ({ svg }: Props) => {
         {isExpanded ? <OptionsMenu measurement={measurement} /> : null}  
       </div>
 
-      <Statusbar point={[0, 1]} />
+      <Statusbar />
 
     </section>
   </>

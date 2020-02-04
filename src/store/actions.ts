@@ -5,7 +5,8 @@ export type ActionType =
    | { type: 'TOGGLE_PATH_NAMES' }  
    | { type: 'TOGGLE_PATH_FLOW' }  
    | { type: 'TOGGLE_PATH_FLOW' }  
-   | { type: 'CLICK_DOWN', x: number, y: number }
+   | { type: 'CLICK_DOWN', point: number[] }
+   | { type: 'MOUSE_MOVE', event: React.MouseEvent<HTMLDivElement, MouseEvent> }
 
 /*
  * action creators

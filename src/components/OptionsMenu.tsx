@@ -7,12 +7,6 @@ import styles from './OptionsMenu.css'
 import { useTranslation } from "react-i18next";
 import { store, dispatchStore } from '../store';
 
-export type IOptions = {
-    fitOnScreen: boolean
-    showGrid: boolean
-    showPathNames: boolean
-    showPathFlow: boolean
-}
 export type Props = {
     measurement: string
 }
