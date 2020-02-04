@@ -7,18 +7,12 @@ const { useState, useEffect } = React
 import convert from 'react-from-dom';
 import Grid from './Grid'
 import Statusbar from './Statusbar'
-import OptionsMenu, { IOptions } from './OptionsMenu'
+import OptionsMenu from './OptionsMenu'
 import styles from './Blueprint.css'
 import { useTranslation } from "react-i18next";
+import { store, dispatchStore } from '../store';
 
 export type Props = { svg: string }
-
-const initialOptions: IOptions = {
-  fitOnScreen: false,
-  showGrid: true,
-  showPathNames: false,
-  showPathFlow: false,
-}
 
 interface SVGProps {
   width: string
@@ -29,10 +23,10 @@ interface SVGProps {
 }
 
 const Blueprint = ({ svg }: Props) => {
+  const { options, view } = React.useContext(store)
+  const dispatch = React.useContext(dispatchStore)
 
-  const [zoom, setZoom] = useState(1);
   const [measurement] = useState("units");
-  const [options, setOptions] = useState(initialOptions);
   const [isExpanded, setIsExpanded] = useState(false);
   const [svgNode, setSVGNode] = useState<React.ReactElement<SVGProps, any>>()
   const { t } = useTranslation()
@@ -42,10 +36,8 @@ const Blueprint = ({ svg }: Props) => {
     marginTop: 70
   }
 
-  const width = 100 * zoom
-  const height = 100 * zoom
-  const zoomFactor = 0.005
-  const zoomLimit = { min: 0.0001, max: 10000 }
+  const width = 100 * view.zoom
+  const height = 100 * view.zoom
 
   useEffect(() => {
     var svgNode = convert(svg) as React.ReactElement<SVGProps, any>
@@ -61,13 +53,7 @@ const Blueprint = ({ svg }: Props) => {
     </header>
 
     <section
-      onWheel={(e) => {
-         var newZoom = zoom - e.deltaY * zoomFactor * zoom
-         console.log("wheel.deltaY: ", e.deltaY, " , newZoom: ", newZoom); 
-         if (newZoom < zoomLimit.min) newZoom = zoomLimit.min
-         else if (newZoom > zoomLimit.max) newZoom = zoomLimit.max
-         setZoom(newZoom)
-    }}
+      onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY }) }
       className={styles.blueprintCanvas}
     >
       {options.showGrid ? <Grid /> : null}
@@ -80,15 +66,10 @@ const Blueprint = ({ svg }: Props) => {
           <svg className={styles.pointers} xmlns="http://www.w3.org/2000/svg"></svg>
           <div className={styles.touchShield}></div>
         </div>
-        {isExpanded ? <OptionsMenu
-          measurement={measurement}
-          zoom={zoom}
-          options={options}
-          setOptions={setOptions}
-        /> : null}  
+        {isExpanded ? <OptionsMenu measurement={measurement} /> : null}  
       </div>
 
-      <Statusbar point={[0, 1]} zoom={zoom} />
+      <Statusbar point={[0, 1]} />
 
     </section>
   </>

@@ -32,7 +32,7 @@ const initialState: RootState = {
 }
 
 const store = createContext(initialState);
-const dispatchStore: React.Context<React.Dispatch<ActionType>>  = createContext({}) as any 
+const dispatchStore: React.Context<React.Dispatch<ActionType>> = createContext({}) as any 
 
 type ProviderProps = {}
 
