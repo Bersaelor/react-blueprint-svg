@@ -4,9 +4,9 @@
 
 [![NPM](https://img.shields.io/npm/v/react-blueprint-svg.svg)](https://www.npmjs.com/package/react-blueprint-svg) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[Demo](https://bersaelor.github.io/react-blueprint-svg/)
+<img alt="Example Illustration" src="/Screenshots/recording.gif?raw=true" width="75%">
 
-<img alt="Example Illustration" src="/Screenshots/recording.gif?raw=true" width="50%">
+[Link to Demo](https://bersaelor.github.io/react-blueprint-svg/)
 
 ## Install
 
