@@ -6,7 +6,7 @@
 
 [Demo](https://bersaelor.github.io/react-blueprint-svg/)
 
-![Example Illustration](/Screenshots/recording.gif?raw=true | width=611)
+<img alt="Example Illustration" src="/Screenshots/recording.gif?raw=true" width="50%">
 
 ## Install
 
