@@ -3,7 +3,6 @@ import { RootState } from './state'
 import * as makerjs from 'makerjs'
 
 const wheelZoomDelta = 0.1
-const zoomLimit = { min: 0.0001, max: 10000 }
 
 export default (state: RootState, action: ActionType) => {
     switch (action.type) {
@@ -36,13 +35,11 @@ export default (state: RootState, action: ActionType) => {
             }
         case 'MOUSE_WHEEL':
             var sign = action.delta > 0 ? 1 : -1
-            var newZoom = state.view.zoom * (1 + sign * wheelZoomDelta)
-            if (newZoom < zoomLimit.min) newZoom = zoomLimit.min
-            else if (newZoom > zoomLimit.max) newZoom = zoomLimit.max
-            const newOptions = state.options.fitOnScreen && newZoom !== 1 ? { ...state.options, fitOnScreen: false } : state.options
+            var newScale = state.view.scale * (1 + sign * wheelZoomDelta)
+            const newOptions = state.options.fitOnScreen && newScale !== 1 ? { ...state.options, fitOnScreen: false } : state.options
             return {
                 options: newOptions,
-                view: { ...state.view, zoom: newZoom }
+                view: { ...state.view, zoom: newScale }
             }
         case 'MOUSE_MOVE':
             return {

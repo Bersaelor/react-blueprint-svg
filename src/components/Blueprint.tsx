@@ -36,8 +36,8 @@ const Blueprint = ({ svg }: Props) => {
     marginTop: view.margin[1]
   }
 
-  const width = 100 * view.zoom
-  const height = 100 * view.zoom
+  const width = 100 * view.scale
+  const height = 100 * view.scale
 
   console.log("Rerendering Blueprint")
 

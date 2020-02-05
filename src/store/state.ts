@@ -13,12 +13,12 @@ const initialOptions = {
 }
 
 const initialView: {
-    zoom: number
+    scale: number
     viewOffset: makerjs.IPoint
     cursor: makerjs.IPoint
     margin: makerjs.IPoint
 } = {
-    zoom: 1,
+    scale: 1,
     viewOffset: [0,0],
     cursor: [0,0],
     margin: [70, 70],
