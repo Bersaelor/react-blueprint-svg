@@ -9,7 +9,7 @@ import makerjs from 'makerjs';
 
   return (
     <div className="container">
-      <h3><a href="https://github.com/Bersaelor/react-blueprint-svg/pulls">react-blueprint-svg</a> with <a href="https://github.com/danmarshall/makerjs-smile">smiley by Dan Marshall</a></h3>
+      <h3><a href="https://github.com/Bersaelor/react-blueprint-svg">react-blueprint-svg</a> with <a href="https://github.com/danmarshall/makerjs-smile">smiley by Dan Marshall</a></h3>
       <Blueprint svg={svg} />
     </div>
   )

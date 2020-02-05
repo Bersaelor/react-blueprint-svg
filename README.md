@@ -6,7 +6,7 @@
 
 [Demo](https://bersaelor.github.io/react-blueprint-svg/)
 
-![Example Illustration](/Screenshots/recording.gif?raw=true)
+![Example Illustration](/Screenshots/recording.gif?raw=true | width=611)
 
 ## Install
 
@@ -27,7 +27,7 @@ import React from 'react'
 import Blueprint from 'react-blueprint-svg'
 import makerjs from 'makerjs';
 
- function App() {
+function App() {
   let model = //...
   let svg = makerjs.exporter.toSVG(model, { origin: [0, 0] });
 
