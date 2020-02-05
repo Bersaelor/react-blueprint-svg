@@ -11,6 +11,7 @@ import OptionsMenu from './OptionsMenu'
 import styles from './Blueprint.css'
 import { useTranslation } from "react-i18next";
 import { store, dispatchStore } from '../store';
+import Pointers from './Pointers';
 
 export type Props = { svg: string }
 
@@ -67,14 +68,16 @@ const Blueprint = ({ svg }: Props) => {
 
       <div
         className={styles.viewParams}
-        onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
+        onMouseDown= {() => dispatch({ type: 'MOUSE_DOWN' })}
         onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] })} }
+        onMouseUp= {() => dispatch({ type: 'MOUSE_UP' })}
+        onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
       >
         <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none">
           <div id="view-svg-container">
             {svgNode ? <svg {...svgNode.props} width={width} height={height} style={svgStyle} /> : null}
           </div>
-          <svg className={styles.pointers} xmlns="http://www.w3.org/2000/svg"></svg>
+          {view.isMouseDown ? <Pointers /> : null}
           <div className={styles.touchShield}></div>
         </div>
         {isExpanded ? <OptionsMenu measurement={measurement} /> : null}  

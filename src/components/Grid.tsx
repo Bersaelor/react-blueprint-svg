@@ -3,9 +3,7 @@ import styles from './Grid.css'
 import { store } from '../store';
 import { getGridScale } from '../geometry';
 
-export type Props = { }
-
-const Blueprint = ({ }: Props) => {
+const Grid = ({ }: { }) => {
   const state = React.useContext(store)
   let gridScale = getGridScale(state)
 
@@ -41,4 +39,4 @@ const Blueprint = ({ }: Props) => {
     </svg>
 }
 
-export default Blueprint
+export default Grid

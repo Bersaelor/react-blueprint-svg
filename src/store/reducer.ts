@@ -41,6 +41,12 @@ export default (state: RootState, action: ActionType) => {
                 options: newOptions,
                 view: { ...state.view, scale: newScale }
             }
+        case 'MOUSE_DOWN':
+            return { ...state, view: { ...state.view, isMouseDown: true }
+        }
+        case 'MOUSE_UP':
+            return { ...state, view: { ...state.view, isMouseDown: false }
+        }
         case 'MOUSE_MOVE':
             return {
                 options: state.options,

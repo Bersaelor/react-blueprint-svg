@@ -13,15 +13,17 @@ const initialOptions = {
 }
 
 const initialView: {
+    cursor: makerjs.IPoint
+    isMouseDown: boolean
+    margin: makerjs.IPoint
     scale: number
     viewOffset: makerjs.IPoint
-    cursor: makerjs.IPoint
-    margin: makerjs.IPoint
 } = {
+    cursor: [0,0],
+    isMouseDown: false,
+    margin: [70, 70],
     scale: 1,
     viewOffset: [0,0],
-    cursor: [0,0],
-    margin: [70, 70],
 }
 
 const initialState: RootState = {
