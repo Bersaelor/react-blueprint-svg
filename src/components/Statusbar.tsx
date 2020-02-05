@@ -17,7 +17,7 @@ function Statusbar() {
     const y = coo[1].toLocaleString(i18n.language, options)
 
     return <div className={styles.statusbar} >
-        { `x: ${ x }, y: ${ y } | zoom: ${ state.view.zoom.toLocaleString(i18n.language, {style: "percent"}) }` }
+        { `x: ${ x }, y: ${ y } | zoom: ${ state.view.scale.toLocaleString(i18n.language, {style: "percent"}) }` }
     </div>
 }
 

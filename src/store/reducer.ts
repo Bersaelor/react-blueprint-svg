@@ -8,7 +8,7 @@ export default (state: RootState, action: ActionType) => {
     switch (action.type) {
         case 'TOGGLE_FIT_SCREEN':
             const newFitOnScreen = !state.options.fitOnScreen
-            const newViewOptions = newFitOnScreen ? { ...state.view, zoom: 1 } : state.view
+            const newViewOptions = newFitOnScreen ? { ...state.view, scale: 1 } : state.view
             return {
                 view: newViewOptions,
                 options: { ...state.options, fitOnScreen: newFitOnScreen }
@@ -39,7 +39,7 @@ export default (state: RootState, action: ActionType) => {
             const newOptions = state.options.fitOnScreen && newScale !== 1 ? { ...state.options, fitOnScreen: false } : state.options
             return {
                 options: newOptions,
-                view: { ...state.view, zoom: newScale }
+                view: { ...state.view, scale: newScale }
             }
         case 'MOUSE_MOVE':
             return {

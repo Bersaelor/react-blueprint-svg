@@ -17,7 +17,7 @@ const OptionsMenu = ({ measurement }: Props) => {
 
     const { t, i18n } = useTranslation()
 
-    const zoomString = view.zoom.toLocaleString(i18n.language, { style: "percent" })
+    const zoomString = view.scale.toLocaleString(i18n.language, { style: "percent" })
     
     return <div className={`${styles.optionsMenu} noselect`}>
         <div className={styles.measurement}>{measurement}</div>
