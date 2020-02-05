@@ -33,8 +33,8 @@ const Blueprint = ({ svg }: Props) => {
   const { t } = useTranslation()
  
   const svgStyle = {
-    marginLeft: view.margin[0],
-    marginTop: view.margin[1]
+    marginLeft: view.panOffset[0],
+    marginTop: view.panOffset[1]
   }
 
   const width = 100 * view.scale

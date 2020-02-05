@@ -3,6 +3,7 @@ import { RootState } from './state'
 import * as makerjs from 'makerjs'
 
 const wheelZoomDelta = 0.1
+const p = makerjs.point
 
 export default (state: RootState, action: ActionType) => {
     switch (action.type) {
@@ -48,9 +49,13 @@ export default (state: RootState, action: ActionType) => {
             return { ...state, view: { ...state.view, isMouseDown: false }
         }
         case 'MOUSE_MOVE':
+            const { view } = state
+            const newCursor = p.subtract(action.point, view.viewOffset)
+            var panDelta: makerjs.IPoint = [0, 0]
+            if (state.view.isMouseDown) panDelta = p.subtract(newCursor, view.cursor) 
             return {
-                options: state.options,
-                view: { ...state.view, cursor: makerjs.point.subtract(action.point, state.view.viewOffset) }
+                ...state,
+                view: { ...view, cursor: newCursor, panOffset: p.add(panDelta, view.panOffset) }
             }
         default:
             return state
