@@ -4,25 +4,36 @@
 
 [![NPM](https://img.shields.io/npm/v/react-blueprint-svg.svg)](https://www.npmjs.com/package/react-blueprint-svg) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+[Demo](https://bersaelor.github.io/react-blueprint-svg/)
+
+![Example Illustration](/Screenshots/recording.gif?raw=true)
+
 ## Install
 
 ```bash
 npm install --save react-blueprint-svg
 ```
 
+or 
+
+```bash
+yarn add react-blueprint-svg
+```
+
 ## Usage
 
 ```tsx
-import * as React from 'react'
+import React from 'react'
+import Blueprint from 'react-blueprint-svg'
+import makerjs from 'makerjs';
 
-import MyComponent from 'react-blueprint-svg'
+ function App() {
+  let model = //...
+  let svg = makerjs.exporter.toSVG(model, { origin: [0, 0] });
 
-class Example extends React.Component {
-  render () {
-    return (
-      <MyComponent />
-    )
-  }
+  return <div className="container">
+    <Blueprint svg={svg} />
+  </div>
 }
 ```
 

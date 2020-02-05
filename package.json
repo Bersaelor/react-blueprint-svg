@@ -61,5 +61,15 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react",
+    "svg",
+    "playground",
+    "scalable",
+    "vector",
+    "makerjs",
+    "maker",
+    "cnc"
   ]
 }
