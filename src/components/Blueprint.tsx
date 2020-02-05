@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react'
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 import convert from 'react-from-dom';
 import Grid from './Grid'
 import Statusbar from './Statusbar'
@@ -41,10 +41,19 @@ const Blueprint = ({ svg }: Props) => {
 
   console.log("Rerendering Blueprint")
 
+  const mainViewRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     var svgNode = convert(svg) as React.ReactElement<SVGProps, any>
     setSVGNode(svgNode)
   }, [svg])
+
+  useEffect(() => {
+    if (mainViewRef.current) {
+      let boundingBox = mainViewRef.current.getBoundingClientRect()
+      dispatch({ type: 'SET_VIEW_OFFSET', point: [boundingBox.left, boundingBox.top]})
+    }
+  }, [mainViewRef])
 
   return <>
     <header>
@@ -59,9 +68,9 @@ const Blueprint = ({ svg }: Props) => {
       <div
         className={styles.viewParams}
         onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
-        onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', event: e })} }
+        onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] })} }
       >
-        <div className={`${styles.view} noselect`} touch-action="none">
+        <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none">
           <div id="view-svg-container">
             {svgNode ? <svg {...svgNode.props} width={width} height={height} style={svgStyle} /> : null}
           </div>

@@ -1,3 +1,4 @@
+import * as makerjs from 'makerjs'
 
 type RootState = {
     options: typeof initialOptions
@@ -11,8 +12,14 @@ const initialOptions = {
     showPathFlow: false,
 }
 
-const initialView = {
+const initialView: {
+    zoom: number
+    viewOffset: makerjs.IPoint
+    cursor: makerjs.IPoint
+    margin: makerjs.IPoint
+} = {
     zoom: 1,
+    viewOffset: [0,0],
     cursor: [0,0],
     margin: [70, 70],
 }

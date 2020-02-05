@@ -1,4 +1,5 @@
 
+import * as makerjs from 'makerjs'
 import { RootState } from './store/state';
 
 export function getGridScale(state: RootState): number {
@@ -13,4 +14,8 @@ export function getGridScale(state: RootState): number {
     }
 
     return gridScale * 10 * state.view.zoom;
+}
+
+export function getCursorCoordinates(state: RootState): makerjs.IPoint {
+    return makerjs.point.scale(state.view.cursor, 1 / state.view.zoom)
 }
