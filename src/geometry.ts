@@ -40,16 +40,16 @@ export function screenFit(state: RootState): ViewState {
     var view = { ...state.view }
     if ( !state.content.measurement ) return view
 
-    var halfWidth = view.viewSize[0] / 2
+    // var halfWidth = view.viewSize[0] / 2
     const naturalSize = getNaturalSize(state.content.measurement)
-    view.scale = 1
     view.panOffset = [0, 0]
     const scaleHeight = view.viewSize[1] / naturalSize[1];
     const scaleWidth = view.viewSize[0] / naturalSize[0];
-    view.scale *= Math.min(scaleWidth, scaleHeight)
+    view.scale = 0.5 * Math.min(scaleWidth, scaleHeight)
     console.log("screenFit: ", view)
-    halfWidth -= (naturalSize[0] / 2 + state.content.measurement.low[0]) * view.scale;
-    view.panOffset = [halfWidth, state.content.measurement.high[1] * view.scale];
+    // halfWidth -= (naturalSize[0] / 2 + state.content.measurement.low[0]) * view.scale;
+    view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
+    // view.panOffset = [halfWidth, state.content.measurement.high[1] * view.scale];
 
     return view
 }
