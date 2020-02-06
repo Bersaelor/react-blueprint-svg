@@ -6,7 +6,7 @@ import { getCursorCoordinates } from '../geometry'
 
 function Statusbar() {
     const { i18n } = useTranslation()
-    const {view} = React.useContext(store)
+    const { view } = React.useContext(store)
 
     const options = {
         maximumFractionDigits: 2,

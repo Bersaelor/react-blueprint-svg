@@ -1,8 +1,9 @@
 import * as makerjs from 'makerjs'
 
 type ViewState = typeof initialView
+type OptionState = typeof initialOptions
 type RootState = {
-    options: typeof initialOptions
+    options: OptionState
     view: ViewState
 }
 
@@ -32,4 +33,4 @@ const initialState: RootState = {
     view: initialView
 }
 
-export { initialState, RootState, ViewState }
+export { initialState, RootState, ViewState, OptionState }
