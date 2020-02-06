@@ -42,6 +42,11 @@ const Blueprint = () => {
     }
   }, [mainViewRef])
 
+  const svgClasses = [
+    options.showPathNames ? "" : styles.collapseannotation,
+    options.showPathFlow ? "" : styles.collapseflow,
+  ].join(" ")
+
   return <>
     <header>
       <div className={`${styles.renderingOptionsTop} ${!isMenuExpanded ? styles.collapsedRenderingOptionsTop : ""}`}>

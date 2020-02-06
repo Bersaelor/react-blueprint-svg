@@ -40,20 +40,28 @@ export function screenFit(state: RootState): ViewState {
     var view = { ...state.view }
     if ( !state.content.measurement ) return view
 
-    // var halfWidth = view.viewSize[0] / 2
     const naturalSize = getNaturalSize(state.content.measurement)
     view.panOffset = [0, 0]
     const scaleHeight = view.viewSize[1] / naturalSize[1];
     const scaleWidth = view.viewSize[0] / naturalSize[0];
     view.scale = 0.5 * Math.min(scaleWidth, scaleHeight)
-    console.log("screenFit: ", view)
-    // halfWidth -= (naturalSize[0] / 2 + state.content.measurement.low[0]) * view.scale;
     view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
-    // view.panOffset = [halfWidth, state.content.measurement.high[1] * view.scale];
 
     return view
 }
 
 export function getNaturalSize(measure: makerjs.IMeasureWithCenter) {
     return [measure.high[0] - measure.low[0], measure.high[1] - measure.low[1]]
+}
+
+export function renderOptions(view: ViewState) {
+    const fontSize = 2
+    return {
+        origin: view.origin,
+        annotate: true,
+        flow: { size: 8 },
+        svgAttrs: { "id": 'drawing' },
+        fontSize: fontSize + 'px',
+        useSvgPathOnly: false
+    }
 }

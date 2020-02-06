@@ -14,9 +14,22 @@
   overflow: visible;
 }
 
-.view svg g path {
+.view svg g path, .view svg g circle, .view svg g :global(.flow) {
   stroke: #fff;
   stroke-width: 2px;
+}
+
+.view .collapseflow svg g :global(.flow) {
+  display: none;
+}
+
+g text {
+  fill: turquoise;
+  stroke: none;
+}
+
+.collapseannotation g text {
+  display: none;
 }
 
 header, section {
@@ -92,7 +105,6 @@ header h1 {
   margin: 2em;
 }
 
-
 #rendering-options-menu .view-controls {
   letter-spacing: 1px;
   font-variant: small-caps;
@@ -130,19 +142,10 @@ header h1 {
   text-shadow: 0 0 1em rgba(0,0,0,.5);
 }
 
-svg.pointers, .touchShield {
-  display: none;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
 .touchShield {
   background-color: transparent;
 }
 
-.pointing svg.pointers, .pointing .touchShield{
+.pointing svg.pointers, .pointing .touchShield {
   display: block;
 }

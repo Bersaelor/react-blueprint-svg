@@ -3,7 +3,7 @@ import convert from 'react-from-dom';
 
 import { ActionType } from './actions'
 import { RootState, SVGProps } from './state'
-import { getCursorCoordinates, naturalFit, screenFit } from '../geometry'
+import { getCursorCoordinates, naturalFit, screenFit, renderOptions } from '../geometry'
 
 const wheelZoomDelta = 0.1
 const p = makerjs.point
@@ -13,7 +13,7 @@ export default (state: RootState, action: ActionType) => {
 
     switch (action.type) {
         case 'STORE_MODEL':
-            const svgString = action.model ? makerjs.exporter.toSVG(action.model, { origin: state.view.origin }) : null
+            const svgString = action.model ? makerjs.exporter.toSVG(action.model, renderOptions(view)) : null
             const svgNode = svgString ? convert(svgString) as React.ReactElement<SVGProps, any> : null
             const measurement = action.model ? makerjs.measure.modelExtents(action.model) : null
             const newContent = { measurement: measurement, model: action.model, svgNode: svgNode }
