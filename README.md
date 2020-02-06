@@ -25,14 +25,12 @@ yarn add react-blueprint-svg
 ```tsx
 import React from 'react'
 import Blueprint from 'react-blueprint-svg'
-import makerjs from 'makerjs';
 
 function App() {
-  let model = //...
-  let svg = makerjs.exporter.toSVG(model, { origin: [0, 0] });
+  let smile = new SmileModel();
 
   return <div className="container">
-    <Blueprint svg={svg} />
+    <Blueprint model={smile} />
   </div>
 }
 ```

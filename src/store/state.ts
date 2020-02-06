@@ -1,10 +1,30 @@
 import * as makerjs from 'makerjs'
+import * as React from 'react';
 
+type ContentState = typeof initialContent
 type ViewState = typeof initialView
 type OptionState = typeof initialOptions
+
 type RootState = {
+    content: ContentState
     options: OptionState
     view: ViewState
+}
+
+interface SVGProps {
+    width: string
+    height: string
+    viewBox: string
+    xmlns: string
+    children: any[]
+}
+
+const initialContent: {
+    model: makerjs.IModel | null
+    svgNode: React.ReactElement<SVGProps, any> | null
+} = {
+    model: null,
+    svgNode: null
 }
 
 const initialOptions = {
@@ -20,17 +40,20 @@ const initialView: {
     panOffset: makerjs.IPoint
     scale: number
     viewOffset: makerjs.IPoint
+    viewSize: number[]
 } = {
     cursor: [0,0],
     isMouseDown: false,
     panOffset: [0,0],
     scale: 1,
     viewOffset: [0,0],
+    viewSize: [0, 0]
 }
 
 const initialState: RootState = {
+    content: initialContent,
     options: initialOptions,
     view: initialView
 }
 
-export { initialState, RootState, ViewState, OptionState }
+export { initialState, RootState, ContentState, ViewState, OptionState, SVGProps }

@@ -1,7 +1,9 @@
-import { ActionType } from './actions'
-import { RootState } from './state'
 import * as makerjs from 'makerjs'
-import { getCursorCoordinates } from '../geometry'
+import convert from 'react-from-dom';
+
+import { ActionType } from './actions'
+import { RootState, SVGProps } from './state'
+import { getCursorCoordinates, naturalFit, screenFit } from '../geometry'
 
 const wheelZoomDelta = 0.1
 const p = makerjs.point
@@ -10,12 +12,22 @@ export default (state: RootState, action: ActionType) => {
     const { view } = state
 
     switch (action.type) {
+        case 'STORE_MODEL':
+            // TODO: set viewOrigin somwhere in store 
+            const viewOrigin = [0, 0]
+            const renderOptions = { origin: viewOrigin }
+            const svgString = action.model ? makerjs.exporter.toSVG(action.model, renderOptions) : null
+            const svgNode = svgString ? convert(svgString) as React.ReactElement<SVGProps, any> : null
+            return {
+                ...state,
+                content: { model: action.model, svgNode: svgNode }
+            }
         case 'TOGGLE_FIT_SCREEN':
             const newFitOnScreen = !state.options.fitOnScreen
-            const newViewOptions = newFitOnScreen ? { ...state.view, scale: 1 } : state.view
             return {
-                view: newViewOptions,
-                options: { ...state.options, fitOnScreen: newFitOnScreen }
+                content: state.content,
+                options: { ...state.options, fitOnScreen: newFitOnScreen },
+                view: newFitOnScreen ? screenFit(state) : naturalFit(state),
             }
         case 'TOGGLE_GRID':
             return {
@@ -32,10 +44,10 @@ export default (state: RootState, action: ActionType) => {
                 ...state,
                 options: { ...state.options, showPathFlow: !state.options.showPathFlow }
             }
-        case 'SET_VIEW_OFFSET':
+        case 'SET_VIEW_MEASUREMENTS':
             return {
                 ...state,
-                view: { ...state.view, viewOffset: action.point }
+                view: { ...state.view, viewOffset: action.point, viewSize: action.size }
             }
         case 'MOUSE_WHEEL':
             const sign = action.delta > 0 ? 1 : -1
@@ -47,15 +59,14 @@ export default (state: RootState, action: ActionType) => {
             const centerPointDiff = p.subtract(previousScaledCenter, currentScaledCenter);
             const newOptions = state.options.fitOnScreen && newScale !== 1 ? { ...state.options, fitOnScreen: false } : state.options
             return {
+                content: state.content,
                 options: newOptions,
                 view: { ...state.view, scale: newScale, panOffset: p.add(view.panOffset, centerPointDiff) }
             }
         case 'MOUSE_DOWN':
-            return { ...state, view: { ...state.view, isMouseDown: true }
-        }
+            return { ...state, view: { ...state.view, isMouseDown: true } }
         case 'MOUSE_UP':
-            return { ...state, view: { ...state.view, isMouseDown: false }
-        }
+            return { ...state, view: { ...state.view, isMouseDown: false } }
         case 'MOUSE_MOVE':
             const newCursor = p.subtract(action.point, view.viewOffset)
             var panDelta: makerjs.IPoint = [0, 0]

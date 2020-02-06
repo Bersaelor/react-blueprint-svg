@@ -3,6 +3,7 @@
  */
 
 import * as React from 'react'
+import * as makerjs from 'makerjs'
 
 import { I18nextProvider } from 'react-i18next';
 
@@ -11,12 +12,12 @@ import { StateProvider } from './store';
 import Blueprint from './components/Blueprint';
 import { OptionState } from './store/state'
 
-export type Props = { svg: string, options?: OptionState }
+export type Props = { model: makerjs.IModel, options?: OptionState }
 
-const Main = ({ svg, options }: Props) => {
+const Main = ({ model, options }: Props) => {
   return <I18nextProvider i18n={i18n}>
-    <StateProvider options={options}>
-      <Blueprint svg={svg}/>
+    <StateProvider options={options} model={model}>
+      <Blueprint/>
     </StateProvider>
   </I18nextProvider>
 }

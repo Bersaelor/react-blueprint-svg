@@ -4,7 +4,6 @@
 
 import * as React from 'react'
 const { useState, useEffect, useRef } = React
-import convert from 'react-from-dom';
 import Grid from './Grid'
 import Statusbar from './Statusbar'
 import OptionsMenu from './OptionsMenu'
@@ -13,23 +12,12 @@ import { useTranslation } from "react-i18next";
 import { store, dispatchStore } from '../store';
 import Pointers from './Pointers';
 
-export type Props = { svg: string }
-
-interface SVGProps {
-  width: string
-  height: string
-  viewBox: string
-  xmlns: string
-  children: any[]
-}
-
-const Blueprint = ({ svg }: Props) => {
-  const { options, view } = React.useContext(store)
+const Blueprint = () => {
+  const { options, view, content } = React.useContext(store)
   const dispatch = React.useContext(dispatchStore)
 
   const [measurement] = useState("units");
   const [isExpanded, setIsExpanded] = useState(false);
-  const [svgNode, setSVGNode] = useState<React.ReactElement<SVGProps, any>>()
   const { t } = useTranslation()
  
   const svgStyle = {
@@ -40,19 +28,18 @@ const Blueprint = ({ svg }: Props) => {
   const width = 100 * view.scale
   const height = 100 * view.scale
 
-  console.log("Rerendering Blueprint")
+  console.log("Rerendering Blueprint with view ", view)
 
   const mainViewRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    var svgNode = convert(svg) as React.ReactElement<SVGProps, any>
-    setSVGNode(svgNode)
-  }, [svg])
-
-  useEffect(() => {
     if (mainViewRef.current) {
       let boundingBox = mainViewRef.current.getBoundingClientRect()
-      dispatch({ type: 'SET_VIEW_OFFSET', point: [boundingBox.left, boundingBox.top]})
+      dispatch({ 
+        type: 'SET_VIEW_MEASUREMENTS', 
+        point: [boundingBox.left, boundingBox.top],
+        size: [boundingBox.width, boundingBox.height],
+      })
     }
   }, [mainViewRef])
 
@@ -75,7 +62,7 @@ const Blueprint = ({ svg }: Props) => {
       >
         <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none">
           <div id="view-svg-container">
-            {svgNode ? <svg {...svgNode.props} width={width} height={height} style={svgStyle} /> : null}
+            {content.svgNode ? <svg {...content.svgNode.props} width={width} height={height} style={svgStyle} /> : null}
           </div>
           {view.isMouseDown ? <Pointers /> : null}
           <div className={styles.touchShield}></div>
