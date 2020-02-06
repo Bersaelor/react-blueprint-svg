@@ -24,7 +24,7 @@ export function naturalFit(state: RootState): ViewState {
     view.scale = 1
     view.panOffset = [halfWidth, 0]
 
-    return state.view
+    return view
 }
 
 
@@ -32,7 +32,9 @@ export function screenFit(state: RootState): ViewState {
     var view = { ...state.view }
 
     view.scale = 2
-    view.panOffset = [20, 20]
+    view.panOffset = [70, 70]
+
+    console.log("screenFit: ", view)
 
     return view
 }

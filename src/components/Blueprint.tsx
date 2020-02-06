@@ -28,7 +28,7 @@ const Blueprint = () => {
   const width = 100 * view.scale
   const height = 100 * view.scale
 
-  console.log("Rerendering Blueprint with view ", view)
+  console.log("Rerendering Blueprint")
 
   const mainViewRef = useRef<HTMLDivElement>(null)
 
@@ -53,14 +53,13 @@ const Blueprint = () => {
     <section className={styles.blueprintCanvas} >
       {options.showGrid ? <Grid /> : null}
 
-      <div
-        className={styles.viewParams}
-        onMouseDown= {() => dispatch({ type: 'MOUSE_DOWN' })}
-        onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] })} }
-        onMouseUp= {() => dispatch({ type: 'MOUSE_UP' })}
-        onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
-      >
-        <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none">
+      <div className={styles.viewParams} >
+        <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none"
+          onMouseDown={(e) => { console.log("e: ", e); dispatch({ type: 'MOUSE_DOWN' }) }}
+          onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] }) }}
+          onMouseUp={() => dispatch({ type: 'MOUSE_UP' })}
+          onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
+        >
           <div id="view-svg-container">
             {content.svgNode ? <svg {...content.svgNode.props} width={width} height={height} style={svgStyle} /> : null}
           </div>
