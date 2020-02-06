@@ -20,9 +20,11 @@ interface SVGProps {
 }
 
 const initialContent: {
+    measurement: makerjs.IMeasureWithCenter | null
     model: makerjs.IModel | null
     svgNode: React.ReactElement<SVGProps, any> | null
 } = {
+    measurement: null,
     model: null,
     svgNode: null
 }
@@ -37,6 +39,7 @@ const initialOptions = {
 const initialView: {
     cursor: makerjs.IPoint
     isMouseDown: boolean
+    origin: makerjs.IPoint
     panOffset: makerjs.IPoint
     scale: number
     viewOffset: makerjs.IPoint
@@ -44,6 +47,7 @@ const initialView: {
 } = {
     cursor: [0,0],
     isMouseDown: false,
+    origin: [0, 0],
     panOffset: [0,0],
     scale: 1,
     viewOffset: [0,0],

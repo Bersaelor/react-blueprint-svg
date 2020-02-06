@@ -4,6 +4,6 @@ export default {
 	"OptionsMenu.fitOnScreen": "Größe anpassen",
 	"OptionsMenu.showGrid": "Grid anzeigen",
 	"OptionsMenu.showPathNames": "Pfadnamen anzeigen",
-	"OptionsMenu.showPathFlow": "Pfadrichtung anzeigen"
-
+	"OptionsMenu.showPathFlow": "Pfadrichtung anzeigen",
+	"OptionsMenu.units": "Einheiten"
 };

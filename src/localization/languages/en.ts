@@ -4,5 +4,6 @@ export default {
 	"OptionsMenu.fitOnScreen": "Fit on Scren",
 	"OptionsMenu.showGrid": "Show Grid",
 	"OptionsMenu.showPathNames": "Show Path Names",
-	"OptionsMenu.showPathFlow": "Show path flow"
+	"OptionsMenu.showPathFlow": "Show path flow",
+	"OptionsMenu.units": "Units"
 };

@@ -2,12 +2,13 @@ import * as React from 'react'
 import styles from './Grid.css'
 import { store } from '../store';
 import { getGridScale } from '../geometry';
+import * as makerjs from 'makerjs'
 
 const Grid = ({ }: { }) => {
   const { view } = React.useContext(store)
   let gridScale = getGridScale(view)
-  // maybe we should add the origin to panOffset
-  let transform = `translate(${view.panOffset[0]},${view.panOffset[1]})`
+  let p = makerjs.point.add(view.origin, view.panOffset)
+  let transform = `translate(${p[0]},${p[1]})`
 
   return <svg className={styles.grid}>
     <defs>

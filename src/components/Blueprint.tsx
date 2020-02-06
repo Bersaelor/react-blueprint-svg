@@ -16,8 +16,7 @@ const Blueprint = () => {
   const { options, view, content } = React.useContext(store)
   const dispatch = React.useContext(dispatchStore)
 
-  const [measurement] = useState("units");
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMenuExpanded, setIsMenuExpanded] = useState(false);
   const { t } = useTranslation()
  
   const svgStyle = {
@@ -45,8 +44,8 @@ const Blueprint = () => {
 
   return <>
     <header>
-      <div className={`${styles.renderingOptionsTop} ${!isExpanded ? styles.collapsedRenderingOptionsTop : ""}`}>
-        <button className={styles.renderOptionsButton} onClick={() => setIsExpanded(!isExpanded)}>{t("blueprint.renderingOptions")} {isExpanded ? "▴" : "▾"}</button>
+      <div className={`${styles.renderingOptionsTop} ${!isMenuExpanded ? styles.collapsedRenderingOptionsTop : ""}`}>
+        <button className={styles.renderOptionsButton} onClick={() => setIsMenuExpanded(!isMenuExpanded)}>{t("blueprint.renderingOptions")} {isMenuExpanded ? "▴" : "▾"}</button>
       </div>
     </header>
 
@@ -66,7 +65,7 @@ const Blueprint = () => {
           {view.isMouseDown ? <Pointers /> : null}
           <div className={styles.touchShield}></div>
         </div>
-        {isExpanded ? <OptionsMenu measurement={measurement} /> : null}  
+        {isMenuExpanded ? <OptionsMenu /> : null}  
       </div>
 
       <Statusbar />

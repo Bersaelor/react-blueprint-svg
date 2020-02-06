@@ -6,21 +6,20 @@ import * as React from 'react'
 import styles from './OptionsMenu.css'
 import { useTranslation } from "react-i18next";
 import { store, dispatchStore } from '../store';
+import { getNaturalSize } from '../geometry';
 
-export type Props = {
-    measurement: string
-}
-
-const OptionsMenu = ({ measurement }: Props) => {
-    const { options, view } = React.useContext(store)
+const OptionsMenu = () => {
+    const { options, view, content } = React.useContext(store)
     const dispatch = React.useContext(dispatchStore)
 
     const { t, i18n } = useTranslation()
 
+    const modelSize = content.measurement ? getNaturalSize(content.measurement) : ['?', '?']
+
     const zoomString = view.scale.toLocaleString(i18n.language, { style: "percent" })
     
     return <div className={`${styles.optionsMenu} noselect`}>
-        <div className={styles.measurement}>{measurement}</div>
+        <div className={styles.measurement}>{`${modelSize[0]} x ${modelSize[1]} ${t("OptionsMenu.units")}`}</div>
         <div className={styles.viewControls}>
             <div> <label>
                 <input type="checkbox" checked={options.fitOnScreen} onChange={ () => dispatch({ type: 'TOGGLE_FIT_SCREEN' }) } />

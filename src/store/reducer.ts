@@ -13,14 +13,14 @@ export default (state: RootState, action: ActionType) => {
 
     switch (action.type) {
         case 'STORE_MODEL':
-            // TODO: set viewOrigin somwhere in store 
-            const viewOrigin = [0, 0]
-            const renderOptions = { origin: viewOrigin }
-            const svgString = action.model ? makerjs.exporter.toSVG(action.model, renderOptions) : null
+            const svgString = action.model ? makerjs.exporter.toSVG(action.model, { origin: state.view.origin }) : null
             const svgNode = svgString ? convert(svgString) as React.ReactElement<SVGProps, any> : null
+            const measurement = action.model ? makerjs.measure.modelExtents(action.model) : null
+            const newContent = { measurement: measurement, model: action.model, svgNode: svgNode }
             return {
                 ...state,
-                content: { model: action.model, svgNode: svgNode }
+                view: naturalFit({ ...state, content: newContent }),
+                content: { measurement: measurement, model: action.model, svgNode: svgNode }
             }
         case 'TOGGLE_FIT_SCREEN':
             const newFitOnScreen = !state.options.fitOnScreen
