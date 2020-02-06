@@ -64,7 +64,7 @@ const Blueprint = () => {
           onMouseUp={() => dispatch({ type: 'MOUSE_UP' })}
           onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
         >
-          <div id="view-svg-container">
+          <div id="view-svg-container" className={svgClasses}>
             {content.svgNode ? <svg {...content.svgNode.props} width={width} height={height} style={svgStyle} /> : null}
           </div>
           {view.isMouseDown ? <Pointers /> : null}
