@@ -35,6 +35,37 @@ function App() {
 }
 ```
 
+## Input
+
+The model property may either be `makerjs.IModel` object or `*.svg` data supplied as a string. When putting in a plain string, advanced display options like path names and flow are disabled, as those rely on `makerjs` to convert the model into annotated `<svg>`.
+
+```tsx
+  var model = {
+    models: {
+      ring1: new makerjs.models.Ring(40, 100),
+      bc1: new makerjs.models.BoltCircle(90, 4, 10),
+      bc2: new makerjs.models.BoltCircle(55, 7, 6, 30)
+    }
+  }
+
+  return <Blueprint model={model} /> // no automatic sizing or path flow annotation
+```
+
+Output:
+<img alt="Example Bolts" src="/Screenshots/bolts.jpg?raw=true" width="100%">
+
+
+
+```tsx
+  let svg = '<svg height="100" width="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />'
+  
+  return <Blueprint model={svg} /> // no automatic sizing or path flow annotation
+```
+
+Output:
+<img alt="SVG Example" src="/Screenshots/circle.jpg?raw=true" width="100%">
+
+
 ## License
 
 MIT © [Bersaelor](https://github.com/Bersaelor)
