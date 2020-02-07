@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { store, dispatchStore } from '../store';
 import Pointers from './Pointers';
 
-const Blueprint = () => {
+const Blueprint: React.FunctionComponent<{}> = ({children}) => {
   const { options, view, content } = React.useContext(store)
   const dispatch = React.useContext(dispatchStore)
 
@@ -45,6 +45,7 @@ const Blueprint = () => {
 
   return <>
     <header>
+      { children }
       <div className={`${styles.renderingOptionsTop} ${!isMenuExpanded ? styles.collapsedRenderingOptionsTop : ""}`}>
         <button className={styles.renderOptionsButton} onClick={() => setIsMenuExpanded(!isMenuExpanded)}>{t("blueprint.renderingOptions")} {isMenuExpanded ? "▴" : "▾"}</button>
       </div>
@@ -55,7 +56,7 @@ const Blueprint = () => {
 
       <div className={styles.viewParams} >
         <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none"
-          onMouseDown={(e) => { console.log("e: ", e); dispatch({ type: 'MOUSE_DOWN' }) }}
+          onMouseDown={() => dispatch({ type: 'MOUSE_DOWN' }) }
           onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] }) }}
           onMouseUp={() => dispatch({ type: 'MOUSE_UP' })}
           onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}

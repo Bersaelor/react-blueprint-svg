@@ -10,10 +10,12 @@ import { OptionState } from './store/state'
 
 export type Props = { model: makerjs.IModel | string, options?: OptionState }
 
-const Main = ({ model, options }: Props) => {
+const Main: React.FunctionComponent<Props> = ({ model, options, children }) => {
   return <I18nextProvider i18n={i18n}>
     <StateProvider options={options} model={model}>
-      <Blueprint/>
+      <Blueprint>
+        { children }
+      </Blueprint>
     </StateProvider>
   </I18nextProvider>
 }

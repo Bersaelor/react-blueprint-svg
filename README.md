@@ -35,6 +35,16 @@ function App() {
 }
 ```
 
+You can also add children elements to the header of the blueprint area, to give it a title or a headline with a link to download your CNC file:
+
+```tsx
+    const filename = "output.dxf"
+    const file = makerjs.exporter.toDXF(model)
+    <Blueprint model={model}> 
+      <h3><a href={file}>{filename}</a></h3>
+    </Blueprint>
+```
+
 ## Input
 
 The model property may either be `makerjs.IModel` object or `*.svg` data supplied as a string. When putting in a plain string, advanced display options like path names and flow are disabled, as those rely on `makerjs` to convert the model into annotated `<svg>`.
@@ -65,6 +75,10 @@ Output:
 Output:
 <img alt="SVG Example" src="/Screenshots/circle.jpg?raw=true">
 
+
+## Contact
+
+Post an [issue](https://github.com/Bersaelor/react-blueprint-svg/issues) or contact me on [twitter](https://twitter.com/bersaelor).
 
 ## License
 
