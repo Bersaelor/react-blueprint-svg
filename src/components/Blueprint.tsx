@@ -22,9 +22,6 @@ const Blueprint = () => {
 
   const width = 100 * view.scale
   const height = 100 * view.scale
-
-  console.log("Rerendering Blueprint")
-
   const mainViewRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

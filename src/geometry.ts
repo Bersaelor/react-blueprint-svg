@@ -21,7 +21,10 @@ export function getCursorCoordinates(view: ViewState): makerjs.IPoint {
 
 export function naturalFit(state: RootState): ViewState {
     var view = { ...state.view }
-    if ( !state.content.measurement ) return view
+    if ( !state.content.measurement ) {
+        view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
+        return view
+    }
 
     view.scale = 1
     view.panOffset = [0, 0]
@@ -38,7 +41,10 @@ export function naturalFit(state: RootState): ViewState {
 
 export function screenFit(state: RootState): ViewState {
     var view = { ...state.view }
-    if ( !state.content.measurement ) return view
+    if ( !state.content.measurement ) {
+        view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
+        return view
+    }
 
     const naturalSize = getNaturalSize(state.content.measurement)
     view.panOffset = [0, 0]

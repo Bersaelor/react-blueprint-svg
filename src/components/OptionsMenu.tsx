@@ -15,26 +15,41 @@ const OptionsMenu = () => {
     const { t, i18n } = useTranslation()
 
     const modelSize = content.measurement ? getNaturalSize(content.measurement) : ['?', '?']
-
     const zoomString = view.scale.toLocaleString(i18n.language, { style: "percent" })
+    const arePathFeaturesTogglable = content.measurement !== null
     
     return <div className={`${styles.optionsMenu} noselect`}>
         <div className={styles.measurement}>{`${modelSize[0]} x ${modelSize[1]} ${t("OptionsMenu.units")}`}</div>
         <div className={styles.viewControls}>
             <div> <label>
-                <input type="checkbox" checked={options.fitOnScreen} onChange={ () => dispatch({ type: 'TOGGLE_FIT_SCREEN' }) } />
+                <input 
+                    type="checkbox"
+                    checked={options.fitOnScreen}
+                    onChange={ () => dispatch({ type: 'TOGGLE_FIT_SCREEN' }) }
+                    disabled={!arePathFeaturesTogglable}
+                />
                 {t("OptionsMenu.fitOnScreen").toLocaleLowerCase()} <span className={styles.zoomUnit}>[{zoomString}]</span>
             </label></div>
             <div><label>
-                <input type="checkbox" checked={options.showGrid} onChange={ () => dispatch({ type: 'TOGGLE_GRID' }) } /> 
+                <input type="checkbox" checked={options.showGrid} onChange={() => dispatch({ type: 'TOGGLE_GRID' })} />
                 {t("OptionsMenu.showGrid").toLocaleLowerCase()}
             </label></div>
             <div><label>
-                <input type="checkbox" checked={options.showPathNames} onChange={ () => dispatch({ type: 'TOGGLE_PATH_NAMES' }) } />
+                <input
+                    type="checkbox"
+                    checked={options.showPathNames} 
+                    onChange={() => dispatch({ type: 'TOGGLE_PATH_NAMES' })} 
+                    disabled={!arePathFeaturesTogglable}
+                />
                 {t("OptionsMenu.showPathNames").toLocaleLowerCase()}
             </label></div>
             <div><label>
-                <input type="checkbox" checked={options.showPathFlow} onChange={ () => dispatch({ type: 'TOGGLE_PATH_FLOW' }) } /> 
+                <input
+                    type="checkbox" 
+                    checked={options.showPathFlow} 
+                    onChange={() => dispatch({ type: 'TOGGLE_PATH_FLOW' })} 
+                    disabled={!arePathFeaturesTogglable}
+                />
                 {t("OptionsMenu.showPathFlow").toLocaleLowerCase()}
             </label></div>
         </div>
