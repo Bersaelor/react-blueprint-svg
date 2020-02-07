@@ -8,19 +8,33 @@ import { getCursorCoordinates, naturalFit, screenFit, renderOptions } from '../g
 const wheelZoomDelta = 0.1
 const p = makerjs.point
 
+function isMakerModel(object: string | makerjs.IModel): object is makerjs.IModel {
+    return (object as makerjs.IModel).paths !== undefined || (object as makerjs.IModel).models !== undefined
+}
+
 export default (state: RootState, action: ActionType) => {
     const { view } = state
 
     switch (action.type) {
         case 'STORE_MODEL':
-            const svgString = action.model ? makerjs.exporter.toSVG(action.model, renderOptions(view)) : null
+            const model = action.model
+            var svgString: string | null = null
+            if (model && isMakerModel(model)) {
+                svgString = makerjs.exporter.toSVG(model, renderOptions(view))
+            } else if (model && typeof model === "string") {
+                svgString = model
+            }
             const svgNode = svgString ? convert(svgString) as React.ReactElement<SVGProps, any> : null
-            const measurement = action.model ? makerjs.measure.modelExtents(action.model) : null
-            const newContent = { measurement: measurement, model: action.model, svgNode: svgNode }
+            const measurement = model && isMakerModel(model) ? makerjs.measure.modelExtents(model) : null
+            const newContent = { 
+                measurement: measurement,
+                model: model && isMakerModel(model) ? model : null, 
+                svgNode: svgNode 
+            }
             return {
                 ...state,
                 view: naturalFit({ ...state, content: newContent }),
-                content: { measurement: measurement, model: action.model, svgNode: svgNode }
+                content: newContent
             }
         case 'TOGGLE_FIT_SCREEN':
             const newFitOnScreen = !state.options.fitOnScreen

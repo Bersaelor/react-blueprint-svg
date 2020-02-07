@@ -1,7 +1,3 @@
-/**
- * @className Blueprint
- */
-
 import * as React from 'react'
 import * as makerjs from 'makerjs'
 
@@ -12,7 +8,7 @@ import { StateProvider } from './store';
 import Blueprint from './components/Blueprint';
 import { OptionState } from './store/state'
 
-export type Props = { model: makerjs.IModel, options?: OptionState }
+export type Props = { model: makerjs.IModel | string, options?: OptionState }
 
 const Main = ({ model, options }: Props) => {
   return <I18nextProvider i18n={i18n}>

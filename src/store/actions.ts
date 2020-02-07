@@ -1,7 +1,7 @@
 import * as makerjs from 'makerjs'
 
 export type ActionType =
-   | { type: 'STORE_MODEL', model: makerjs.IModel | null }
+   | { type: 'STORE_MODEL', model: makerjs.IModel | string | null }
    | { type: 'TOGGLE_FIT_SCREEN' }  
    | { type: 'TOGGLE_GRID' }  
    | { type: 'TOGGLE_PATH_NAMES' }  
@@ -11,7 +11,3 @@ export type ActionType =
    | { type: 'MOUSE_MOVE', point: number[] }
    | { type: 'MOUSE_DOWN' }
    | { type: 'MOUSE_UP' }   
-
-/*
- * action creators
- */

@@ -1,7 +1,3 @@
-/**
- * @className Blueprint
- */
-
 import * as React from 'react'
 const { useState, useEffect, useRef } = React
 import Grid from './Grid'
@@ -70,7 +66,7 @@ const Blueprint = () => {
           {view.isMouseDown ? <Pointers /> : null}
           <div className={styles.touchShield}></div>
         </div>
-        {isMenuExpanded ? <OptionsMenu /> : null}  
+        {isMenuExpanded ? <OptionsMenu /> : null}
       </div>
 
       <Statusbar />

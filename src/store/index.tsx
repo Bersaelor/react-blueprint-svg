@@ -11,7 +11,7 @@ const dispatchStore: React.Context<React.Dispatch<ActionType>> = createContext({
 
 type ProviderProps = { 
     options?: OptionState 
-    model?: makerjs.IModel
+    model?: makerjs.IModel | string
 }
 
 const StateProvider: FunctionComponent<ProviderProps> = ({ options, model, children }) => {
