@@ -20,8 +20,11 @@ const Blueprint = () => {
     marginTop: view.panOffset[1]
   }
 
-  const width = 100 * view.scale
-  const height = 100 * view.scale
+  var width = view.scale, height = view.scale
+  if (content.svgNode && content.svgNode.props) {
+    width = parseFloat(content.svgNode.props.width) * view.scale
+    height = parseFloat(content.svgNode.props.height) * view.scale
+  }
   const mainViewRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

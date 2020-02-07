@@ -48,16 +48,16 @@ export function screenFit(state: RootState): ViewState {
 
     const naturalSize = getNaturalSize(state.content.measurement)
     view.panOffset = [0, 0]
-    const scaleHeight = view.viewSize[1] / naturalSize[1];
-    const scaleWidth = view.viewSize[0] / naturalSize[0];
-    view.scale = 0.5 * Math.min(scaleWidth, scaleHeight)
+    const scaleHeight = view.viewSize[1] / naturalSize[1]
+    const scaleWidth = view.viewSize[0] / naturalSize[0]
+    view.scale = 0.9 * Math.min(scaleWidth, scaleHeight)
     view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
 
     return view
 }
 
 export function getNaturalSize(measure: makerjs.IMeasureWithCenter) {
-    return [measure.high[0] - measure.low[0], measure.high[1] - measure.low[1]]
+    return [measure.width, measure.height]
 }
 
 export function renderOptions(view: ViewState, measurement: makerjs.IMeasureWithCenter | null) {
