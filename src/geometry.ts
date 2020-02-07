@@ -60,8 +60,14 @@ export function getNaturalSize(measure: makerjs.IMeasureWithCenter) {
     return [measure.high[0] - measure.low[0], measure.high[1] - measure.low[1]]
 }
 
-export function renderOptions(view: ViewState) {
-    const fontSize = 2
+export function renderOptions(view: ViewState, measurement: makerjs.IMeasureWithCenter | null) {
+    var fontSize = 2
+    if (measurement) {
+        const size = getNaturalSize(measurement)
+        const minSize = Math.min(size[0], size[1])
+        fontSize = 1 / 25 * minSize
+    }
+
     return {
         origin: view.origin,
         annotate: true,

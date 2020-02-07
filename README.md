@@ -52,7 +52,7 @@ The model property may either be `makerjs.IModel` object or `*.svg` data supplie
 ```
 
 Output:
-<img alt="Example Bolts" src="/Screenshots/bolts.jpg?raw=true" width="100%">
+<img alt="Example Bolts" src="/Screenshots/bolts.jpg?raw=true">
 
 
 
@@ -63,7 +63,7 @@ Output:
 ```
 
 Output:
-<img alt="SVG Example" src="/Screenshots/circle.jpg?raw=true" width="100%">
+<img alt="SVG Example" src="/Screenshots/circle.jpg?raw=true">
 
 
 ## License
