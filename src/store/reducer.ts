@@ -82,7 +82,7 @@ export default (state: RootState, action: ActionType) => {
         case 'MOUSE_UP':
             return { ...state, view: { ...state.view, isMouseDown: false } }
         case 'MOUSE_MOVE':
-            const newCursor = p.subtract(action.point, view.viewOffset)
+            const newCursor = action.point
             var panDelta: makerjs.IPoint = [0, 0]
             if (state.view.isMouseDown) panDelta = p.subtract(newCursor, view.cursor) 
             return {

@@ -27,14 +27,18 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
   }
   const mainViewRef = useRef<HTMLDivElement>(null)
 
+  const updateBoundingBox = (b: DOMRect) => {
+    dispatch({ 
+      type: 'SET_VIEW_MEASUREMENTS', 
+      point: [b.left, b.top],
+      size: [b.width, b.height],
+    })
+  }
+
+  // set up mainView size and attach the wheel handler
   useEffect(() => {
     if (mainViewRef.current) {
-      let boundingBox = mainViewRef.current.getBoundingClientRect()
-      dispatch({ 
-        type: 'SET_VIEW_MEASUREMENTS', 
-        point: [boundingBox.left, boundingBox.top],
-        size: [boundingBox.width, boundingBox.height],
-      })
+      updateBoundingBox(mainViewRef.current.getBoundingClientRect())
 
       // onWheel stopPropagation is currently broken on Chrome 73 ( https://github.com/facebook/react/issues/14856 )
       mainViewRef.current.addEventListener('wheel', e => {
@@ -43,6 +47,18 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
       })
     }
   }, [mainViewRef])
+
+  // set new sizes when window changes
+  useEffect(() => {
+    function handleResize() {
+      if (mainViewRef.current) {
+        updateBoundingBox(mainViewRef.current.getBoundingClientRect())
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
 
   const svgClasses = [
     options.showPathNames ? "" : styles.collapseannotation,
@@ -65,7 +81,7 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
           onMouseDown={() => dispatch({ type: 'MOUSE_DOWN' }) }
           onMouseMove={(e) => { 
             e.persist(); 
-            dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] }) 
+            dispatch({ type: 'MOUSE_MOVE', point: [e.nativeEvent.offsetX, e.nativeEvent.offsetY] }) 
           }}
           onMouseUp={() => dispatch({ type: 'MOUSE_UP' })}
         >
