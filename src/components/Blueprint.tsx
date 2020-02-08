@@ -35,6 +35,12 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
         point: [boundingBox.left, boundingBox.top],
         size: [boundingBox.width, boundingBox.height],
       })
+
+      // onWheel stopPropagation is currently broken on Chrome 73 ( https://github.com/facebook/react/issues/14856 )
+      mainViewRef.current.addEventListener('wheel', e => {
+        e.preventDefault()
+        dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })
+      })
     }
   }, [mainViewRef])
 
@@ -57,9 +63,11 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
       <div className={styles.viewParams} >
         <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none"
           onMouseDown={() => dispatch({ type: 'MOUSE_DOWN' }) }
-          onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] }) }}
+          onMouseMove={(e) => { 
+            e.persist(); 
+            dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] }) 
+          }}
           onMouseUp={() => dispatch({ type: 'MOUSE_UP' })}
-          onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
         >
           <div id="view-svg-container" className={svgClasses}>
             {content.svgNode ? <svg {...content.svgNode.props} width={width} height={height} style={svgStyle} /> : null}
