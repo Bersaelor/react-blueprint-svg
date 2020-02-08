@@ -65,6 +65,12 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
     options.showPathFlow ? "" : styles.collapseflow,
   ].join(" ")
 
+  function handleMouse(type: 'MOUSE_DOWN' | 'MOUSE_MOVE' | 'MOUSE_UP') {
+    return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      e.stopPropagation()
+      dispatch({type: type, point: [e.nativeEvent.offsetX, e.nativeEvent.offsetY]})
+    }
+  }
   return <>
     <header>
       { children }
@@ -78,12 +84,9 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
 
       <div className={styles.viewParams} >
         <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none"
-          onMouseDown={() => dispatch({ type: 'MOUSE_DOWN' }) }
-          onMouseMove={(e) => { 
-            e.persist(); 
-            dispatch({ type: 'MOUSE_MOVE', point: [e.nativeEvent.offsetX, e.nativeEvent.offsetY] }) 
-          }}
-          onMouseUp={() => dispatch({ type: 'MOUSE_UP' })}
+          onMouseDown={handleMouse('MOUSE_DOWN')}
+          onMouseMove={handleMouse('MOUSE_MOVE')}
+          onMouseUp={handleMouse('MOUSE_UP')}
         >
           <div id="view-svg-container" className={svgClasses}>
             {content.svgNode ? <svg {...content.svgNode.props} width={width} height={height} style={svgStyle} /> : null}

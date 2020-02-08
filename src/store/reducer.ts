@@ -78,9 +78,9 @@ export default (state: RootState, action: ActionType) => {
                 view: { ...state.view, scale: newScale, panOffset: p.add(view.panOffset, centerPointDiff) }
             }
         case 'MOUSE_DOWN':
-            return { ...state, view: { ...state.view, isMouseDown: true } }
+            return { ...state, view: { ...state.view, isMouseDown: true, cursor: action.point } }
         case 'MOUSE_UP':
-            return { ...state, view: { ...state.view, isMouseDown: false } }
+            return { ...state, view: { ...state.view, isMouseDown: false, cursor: action.point } }
         case 'MOUSE_MOVE':
             const newCursor = action.point
             var panDelta: makerjs.IPoint = [0, 0]
