@@ -91,11 +91,12 @@ header h1 {
 
 .blueprintCanvas {
   background-color: #3177C6;
-  margin-bottom: 1em;
   overflow: hidden;
+  height: 100%;
 }
 
 .viewParams {
+  height: 100%;
   min-height: 23em;
   overflow: hidden;
   position: relative;
