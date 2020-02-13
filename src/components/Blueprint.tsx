@@ -27,18 +27,29 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
   }
   const mainViewRef = useRef<HTMLDivElement>(null)
 
-  const updateBoundingBox = (b: DOMRect) => {
-    dispatch({ 
-      type: 'SET_VIEW_MEASUREMENTS', 
-      point: [b.left, b.top],
-      size: [b.width, b.height],
-    })
+  const updatePageOffset = () => {
+    if (mainViewRef && mainViewRef.current) {
+      const b = mainViewRef.current.getBoundingClientRect()
+      var el: HTMLElement = mainViewRef.current
+      var curleft = 0, curtop = 0;
+      if (el.offsetParent) {
+          do {
+              curleft += el.offsetLeft;
+              curtop += el.offsetTop;
+          } while (el = el.offsetParent as HTMLElement);
+      }
+      dispatch({ 
+        type: 'SET_VIEW_MEASUREMENTS', 
+        point: [curleft, curtop],
+        size: [b.width, b.height],
+      })
+    }
   }
 
   // set up mainView size and attach the wheel handler
   useEffect(() => {
     if (mainViewRef.current) {
-      updateBoundingBox(mainViewRef.current.getBoundingClientRect())
+      updatePageOffset()
 
       // onWheel stopPropagation is currently broken on Chrome 73 ( https://github.com/facebook/react/issues/14856 )
       mainViewRef.current.addEventListener('wheel', e => {
@@ -51,9 +62,7 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
   // set new sizes when window changes
   useEffect(() => {
     function handleResize() {
-      if (mainViewRef.current) {
-        updateBoundingBox(mainViewRef.current.getBoundingClientRect())
-      }
+      updatePageOffset()
     }
 
     window.addEventListener('resize', handleResize);
@@ -68,7 +77,9 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
   function handleMouse(type: 'MOUSE_DOWN' | 'MOUSE_MOVE' | 'MOUSE_UP') {
     return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       e.stopPropagation()
-      dispatch({type: type, point: [e.nativeEvent.offsetX, e.nativeEvent.offsetY]})
+      // console.log(`Event: ${type}, e.page ${[e.pageX, e.pageY]}`, )
+      // console.log(`Event: ${type}, target: ${e.nativeEvent.target}`, )
+      dispatch({type: type, point: [e.pageX, e.pageY]})
     }
   }
   return <>

@@ -77,12 +77,17 @@ export default (state: RootState, action: ActionType) => {
                 options: newOptions,
                 view: { ...state.view, scale: newScale, panOffset: p.add(view.panOffset, centerPointDiff) }
             }
-        case 'MOUSE_DOWN':
-            return { ...state, view: { ...state.view, isMouseDown: true, cursor: action.point } }
-        case 'MOUSE_UP':
-            return { ...state, view: { ...state.view, isMouseDown: false, cursor: action.point } }
+        case 'MOUSE_DOWN': {
+            const newCursor = p.subtract(action.point, view.viewOffset)
+            return { ...state, view: { ...state.view, isMouseDown: true, cursor: newCursor } }
+        }
+        case 'MOUSE_UP': {
+            const newCursor = p.subtract(action.point, view.viewOffset)
+            return { ...state, view: { ...state.view, isMouseDown: false, cursor: newCursor } }
+        }
         case 'MOUSE_MOVE':
-            const newCursor = action.point
+            const newCursor = p.subtract(action.point, view.viewOffset)
+            // console.log(`viewOffset: ${view.viewOffset}, newCursor: ${newCursor}`)
             var panDelta: makerjs.IPoint = [0, 0]
             if (state.view.isMouseDown) panDelta = p.subtract(newCursor, view.cursor) 
             return {
