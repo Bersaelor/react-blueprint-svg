@@ -27,22 +27,61 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
   }
   const mainViewRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (mainViewRef.current) {
-      let boundingBox = mainViewRef.current.getBoundingClientRect()
+  const updatePageOffset = () => {
+    if (mainViewRef && mainViewRef.current) {
+      const b = mainViewRef.current.getBoundingClientRect()
+      var el: HTMLElement = mainViewRef.current
+      var curleft = 0, curtop = 0;
+      if (el.offsetParent) {
+          do {
+              curleft += el.offsetLeft;
+              curtop += el.offsetTop;
+          } while (el = el.offsetParent as HTMLElement);
+      }
       dispatch({ 
         type: 'SET_VIEW_MEASUREMENTS', 
-        point: [boundingBox.left, boundingBox.top],
-        size: [boundingBox.width, boundingBox.height],
+        point: [curleft, curtop],
+        size: [b.width, b.height],
+      })
+    }
+  }
+
+  // set up mainView size and attach the wheel handler
+  useEffect(() => {
+    if (mainViewRef.current) {
+      updatePageOffset()
+
+      // onWheel stopPropagation is currently broken on Chrome 73 ( https://github.com/facebook/react/issues/14856 )
+      mainViewRef.current.addEventListener('wheel', e => {
+        e.preventDefault()
+        dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })
       })
     }
   }, [mainViewRef])
+
+  // set new sizes when window changes
+  useEffect(() => {
+    function handleResize() {
+      updatePageOffset()
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
 
   const svgClasses = [
     options.showPathNames ? "" : styles.collapseannotation,
     options.showPathFlow ? "" : styles.collapseflow,
   ].join(" ")
 
+  function handleMouse(type: 'MOUSE_DOWN' | 'MOUSE_MOVE' | 'MOUSE_UP') {
+    return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      e.stopPropagation()
+      // console.log(`Event: ${type}, e.page ${[e.pageX, e.pageY]}`, )
+      // console.log(`Event: ${type}, target: ${e.nativeEvent.target}`, )
+      dispatch({type: type, point: [e.pageX, e.pageY]})
+    }
+  }
   return <>
     <header>
       { children }
@@ -56,10 +95,9 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
 
       <div className={styles.viewParams} >
         <div ref={mainViewRef} className={`${styles.view} noselect`} touch-action="none"
-          onMouseDown={() => dispatch({ type: 'MOUSE_DOWN' }) }
-          onMouseMove={(e) => { e.persist(); dispatch({ type: 'MOUSE_MOVE', point: [e.clientX, e.clientY] }) }}
-          onMouseUp={() => dispatch({ type: 'MOUSE_UP' })}
-          onWheel={(e) => dispatch({ type: 'MOUSE_WHEEL', delta: e.deltaY })}
+          onMouseDown={handleMouse('MOUSE_DOWN')}
+          onMouseMove={handleMouse('MOUSE_MOVE')}
+          onMouseUp={handleMouse('MOUSE_UP')}
         >
           <div id="view-svg-container" className={svgClasses}>
             {content.svgNode ? <svg {...content.svgNode.props} width={width} height={height} style={svgStyle} /> : null}

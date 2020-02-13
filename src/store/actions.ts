@@ -9,5 +9,5 @@ export type ActionType =
    | { type: 'SET_VIEW_MEASUREMENTS', point: number[], size: number[] }
    | { type: 'MOUSE_WHEEL', delta: number }
    | { type: 'MOUSE_MOVE', point: number[] }
-   | { type: 'MOUSE_DOWN' }
-   | { type: 'MOUSE_UP' }   
+   | { type: 'MOUSE_DOWN', point: number[] }
+   | { type: 'MOUSE_UP', point: number[] }   

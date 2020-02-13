@@ -1,9 +1,9 @@
 export default {
 	"statusbar.zoom": "Zoom:",
 	"blueprint.renderingOptions": "Optionen",
-	"OptionsMenu.fitOnScreen": "Größe anpassen",
+	"OptionsMenu.fitOnScreen": "Feste Größe",
 	"OptionsMenu.showGrid": "Grid anzeigen",
-	"OptionsMenu.showPathNames": "Pfadnamen anzeigen",
-	"OptionsMenu.showPathFlow": "Pfadrichtung anzeigen",
+	"OptionsMenu.showPathNames": "Pfadnamen",
+	"OptionsMenu.showPathFlow": "Pfadrichtung",
 	"OptionsMenu.units": "Einheiten"
 };
