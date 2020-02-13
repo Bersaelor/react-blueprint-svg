@@ -14,7 +14,7 @@
   overflow: visible;
 }
 
-.view svg g path, .view svg g circle, .view svg g :global(.flow) {
+.view svg g path, .view svg g line, .view svg g circle, .view svg g :global(.flow) {
   stroke: #fff;
   stroke-width: 2px;
 }
