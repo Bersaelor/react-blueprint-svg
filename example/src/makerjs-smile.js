@@ -22,6 +22,8 @@ function SmileModel(span, teeth, droop, dainty, gaze, heady) {
 
     mouth.origin = [0, droop];
 
+    this.origin = [30, 30];
+    
     this.models = {
         mouth: mouth
     };
