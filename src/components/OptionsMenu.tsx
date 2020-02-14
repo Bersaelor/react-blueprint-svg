@@ -17,9 +17,12 @@ const OptionsMenu = () => {
     const modelSize = content.measurement ? getNaturalSize(content.measurement) : ['?', '?']
     const zoomString = view.scale.toLocaleString(i18n.language, { style: "percent" })
     const arePathFeaturesTogglable = content.measurement !== null
-    
+    const numberOpt = { maximumFractionDigits: 2 }
+    const xUnitScale = modelSize[0].toLocaleString(i18n.language, numberOpt)
+    const yUnitScale = modelSize[1].toLocaleString(i18n.language, numberOpt)
+
     return <div className={`${styles.optionsMenu} noselect`}>
-        <div className={styles.measurement}>{`${modelSize[0]} x ${modelSize[1]} ${t("OptionsMenu.units")}`}</div>
+        <div className={styles.measurement}>{`${xUnitScale} x ${yUnitScale} ${t("OptionsMenu.units")}`}</div>
         <div className={styles.viewControls}>
             <div> <label>
                 <input 

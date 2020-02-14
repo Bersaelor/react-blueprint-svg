@@ -8,9 +8,13 @@ function Statusbar() {
     const { i18n } = useTranslation()
     const { view } = React.useContext(store)
 
+    const viewWidth = view.viewSize[0] / view.scale
+    var detail = 0
+
+    while (viewWidth && viewWidth < Math.pow(10, -(detail-2))) detail++
     const options = {
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2
+        maximumFractionDigits: detail,
+        minimumFractionDigits: detail
     }
     const coo = getCursorCoordinates(view)
     const x = coo[0].toLocaleString(i18n.language, options)
