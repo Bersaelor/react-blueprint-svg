@@ -75,6 +75,9 @@ Output:
 Output:
 <img alt="SVG Example" src="/Screenshots/circle.jpg?raw=true">
 
+## TODO
+
+* multitouch support for Zooming & Panning, and therefore also React Native support
 
 ## Contact
 
