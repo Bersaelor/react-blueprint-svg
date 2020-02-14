@@ -33,6 +33,7 @@ type OptionState = {
     showGrid: boolean
     showPathNames: boolean
     showPathFlow: boolean
+    yDirection: 'naturalUp' | 'computerScreenDow'
     unitString?: string
 }
 
@@ -41,6 +42,7 @@ const initialOptions: OptionState = {
     showGrid: true,
     showPathNames: false,
     showPathFlow: false,
+    yDirection: 'naturalUp',
     unitString: undefined
 }
 
