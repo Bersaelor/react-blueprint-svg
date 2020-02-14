@@ -22,7 +22,7 @@ const OptionsMenu = () => {
     const yUnitScale = modelSize[1].toLocaleString(i18n.language, numberOpt)
 
     return <div className={`${styles.optionsMenu} noselect`}>
-        <div className={styles.measurement}>{`${xUnitScale} x ${yUnitScale} ${t("OptionsMenu.units")}`}</div>
+        <div className={styles.measurement}>{`${xUnitScale} x ${yUnitScale} ${options.unitString || t("OptionsMenu.units")}`}</div>
         <div className={styles.viewControls}>
             <div> <label>
                 <input 

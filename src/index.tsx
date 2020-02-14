@@ -8,7 +8,7 @@ import { StateProvider } from './store';
 import Blueprint from './components/Blueprint';
 import { OptionState } from './store/state'
 
-export type Props = { model: makerjs.IModel | string, options?: OptionState }
+export type Props = { model: makerjs.IModel | string, options?: Partial<OptionState> }
 
 const Main: React.FunctionComponent<Props> = ({ model, options, children }) => {
   return <I18nextProvider i18n={i18n}>

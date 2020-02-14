@@ -10,12 +10,13 @@ const store = createContext(initialState);
 const dispatchStore: React.Context<React.Dispatch<ActionType>> = createContext({}) as any 
 
 type ProviderProps = { 
-    options?: OptionState 
+    options?: Partial<OptionState> 
     model?: makerjs.IModel | string
 }
 
 const StateProvider: FunctionComponent<ProviderProps> = ({ options, model, children }) => {
-    const firstState = options ? { ...initialState, view: initialState.view } : initialState
+    const initialOptions: OptionState = { ...initialState.options, ...options }
+    const firstState = { ...initialState, options: initialOptions }
     const [state, dispatch] = useReducer(reducer, firstState);
 
     useEffect(() => {
