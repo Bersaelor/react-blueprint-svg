@@ -3,6 +3,7 @@ import * as makerjs from 'makerjs'
 import { RootState, ViewState } from './store/state';
 
 const pixelsPerInch = 96
+let p = makerjs.point
 
 export function getGridScale(view: ViewState): number {
     var gridScale = 1;
@@ -15,14 +16,14 @@ export function getGridScale(view: ViewState): number {
 }
 
 export function getCursorCoordinates(view: ViewState): makerjs.IPoint {
-    const position = makerjs.point.subtract(view.cursor, view.panOffset)
-    return makerjs.point.scale(position, 1 / view.scale)
+    const position = p.subtract(view.cursor, view.panOffset)
+    return p.scale(position, 1 / view.scale)
 }
 
 export function naturalFit(state: RootState): ViewState {
     var view = { ...state.view }
     if ( !state.content.measurement ) {
-        view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
+        view.panOffset = p.scale(view.viewSize, 0.5)
         return view
     }
 
@@ -34,7 +35,7 @@ export function naturalFit(state: RootState): ViewState {
         //from inch to pixel
         view.scale *= pixelsPerInch;
     }
-    view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
+    view.panOffset = p.scale(view.viewSize, 0.5)
 
     return view
 }
@@ -42,16 +43,20 @@ export function naturalFit(state: RootState): ViewState {
 export function screenFit(state: RootState): ViewState {
     var view = { ...state.view }
     if ( !state.content.measurement ) {
-        view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
+        view.panOffset = p.scale(view.viewSize, 0.5)
         return view
     }
 
     const naturalSize = getNaturalSize(state.content.measurement)
-    view.panOffset = [0, 0]
     const scaleHeight = view.viewSize[1] / naturalSize[1]
     const scaleWidth = view.viewSize[0] / naturalSize[0]
+    console.log(`viewSize: ${view.viewSize}, naturalSize: ${naturalSize}, `)
     view.scale = 0.9 * Math.min(scaleWidth, scaleHeight)
-    view.panOffset = makerjs.point.scale(view.viewSize, 0.5)
+    const middle = p.scale(view.viewSize, 0.5)
+    view.panOffset = p.add(middle, p.scale([
+        -(naturalSize[0] / 2 + state.content.measurement.low[0]),
+        (naturalSize[1] / 2 + state.content.measurement.low[1])
+    ], view.scale))
 
     return view
 }
