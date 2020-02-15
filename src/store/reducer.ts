@@ -31,9 +31,10 @@ export default (state: RootState, action: ActionType) => {
                 model: model && isMakerModel(model) ? model : null, 
                 svgNode: svgNode 
             }
+            const fittingState = { ...state, content: newContent }
             return {
                 ...state,
-                view: naturalFit({ ...state, content: newContent }),
+                view: state.options.fitOnScreen ? screenFit(fittingState) : naturalFit(fittingState),
                 content: newContent
             }
         case 'TOGGLE_FIT_SCREEN':
