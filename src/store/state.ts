@@ -3,7 +3,6 @@ import * as React from 'react';
 
 type ContentState = typeof initialContent
 type ViewState = typeof initialView
-type OptionState = typeof initialOptions
 
 type RootState = {
     content: ContentState
@@ -29,11 +28,22 @@ const initialContent: {
     svgNode: null
 }
 
-const initialOptions = {
+type OptionState = {
+    fitOnScreen: boolean
+    showGrid: boolean
+    showPathNames: boolean
+    showPathFlow: boolean
+    yDirection: 'naturalUp' | 'computerScreenDow'
+    unitString?: string
+}
+
+const initialOptions: OptionState = {
     fitOnScreen: false,
     showGrid: true,
     showPathNames: false,
     showPathFlow: false,
+    yDirection: 'naturalUp',
+    unitString: undefined
 }
 
 const initialView: {

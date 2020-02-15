@@ -33,13 +33,13 @@ const Blueprint: React.FunctionComponent<{}> = ({children}) => {
       var el: HTMLElement = mainViewRef.current
       var curleft = 0, curtop = 0;
       if (el.offsetParent) {
-          do {
-              curleft += el.offsetLeft;
-              curtop += el.offsetTop;
-          } while (el = el.offsetParent as HTMLElement);
+        do {
+          curleft += el.offsetLeft;
+          curtop += el.offsetTop;
+        } while (el = el.offsetParent as HTMLElement);
       }
-      dispatch({ 
-        type: 'SET_VIEW_MEASUREMENTS', 
+      dispatch({
+        type: 'SET_VIEW_MEASUREMENTS',
         point: [curleft, curtop],
         size: [b.width, b.height],
       })

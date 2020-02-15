@@ -31,9 +31,10 @@ export default (state: RootState, action: ActionType) => {
                 model: model && isMakerModel(model) ? model : null, 
                 svgNode: svgNode 
             }
+            const fittingState = { ...state, content: newContent }
             return {
                 ...state,
-                view: naturalFit({ ...state, content: newContent }),
+                view: state.options.fitOnScreen ? screenFit(fittingState) : naturalFit(fittingState),
                 content: newContent
             }
         case 'TOGGLE_FIT_SCREEN':
@@ -64,7 +65,7 @@ export default (state: RootState, action: ActionType) => {
                 view: { ...state.view, viewOffset: action.point, viewSize: action.size }
             }
         case 'MOUSE_WHEEL':
-            const sign = action.delta > 0 ? 1 : -1
+            const sign = action.delta > 0 ? -1 : 1
             const newScale = view.scale * (1 + sign * wheelZoomDelta)
             const zoomRatio = newScale / state.view.scale
             const cursorCoo = getCursorCoordinates(view)
