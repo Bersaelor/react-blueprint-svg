@@ -50,7 +50,6 @@ export function screenFit(state: RootState): ViewState {
     const naturalSize = getNaturalSize(state.content.measurement)
     const scaleHeight = view.viewSize[1] / naturalSize[1]
     const scaleWidth = view.viewSize[0] / naturalSize[0]
-    console.log(`viewSize: ${view.viewSize}, naturalSize: ${naturalSize}, `)
     view.scale = 0.9 * Math.min(scaleWidth, scaleHeight)
     const middle = p.scale(view.viewSize, 0.5)
     view.panOffset = p.add(middle, p.scale([
