@@ -66,16 +66,20 @@ export function getNaturalSize(measure: makerjs.IMeasureWithCenter) {
 
 export function renderOptions(view: ViewState, measurement: makerjs.IMeasureWithCenter | null) {
     var fontSize = 2
+    var flowSize = 2
     if (measurement) {
         const size = getNaturalSize(measurement)
         const minSize = Math.min(size[0], size[1])
         fontSize = 1 / 25 * minSize
+        flowSize = 1 / 100 * minSize
     }
+
+    fontSize = 14
 
     return {
         origin: view.origin,
         annotate: true,
-        flow: { size: 8 },
+        flow: { size: flowSize },
         svgAttrs: { "id": 'drawing' },
         fontSize: fontSize + 'px',
         useSvgPathOnly: false
