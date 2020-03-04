@@ -20,7 +20,8 @@ export default (state: RootState, action: ActionType) => {
             const model = action.model
             var svgString: string | null = null
             if (model && isMakerModel(model)) {
-                svgString = makerjs.exporter.toSVG(model, renderOptions(view, makerjs.measure.modelExtents(model)))
+                let options = renderOptions(view, makerjs.measure.modelExtents(model))
+                svgString = makerjs.exporter.toSVG(model, options)
             } else if (model && typeof model === "string") {
                 svgString = model
             }

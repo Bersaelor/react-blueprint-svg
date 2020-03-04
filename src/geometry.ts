@@ -50,7 +50,6 @@ export function screenFit(state: RootState): ViewState {
     const naturalSize = getNaturalSize(state.content.measurement)
     const scaleHeight = view.viewSize[1] / naturalSize[1]
     const scaleWidth = view.viewSize[0] / naturalSize[0]
-    console.log(`viewSize: ${view.viewSize}, naturalSize: ${naturalSize}, `)
     view.scale = 0.9 * Math.min(scaleWidth, scaleHeight)
     const middle = p.scale(view.viewSize, 0.5)
     view.panOffset = p.add(middle, p.scale([
@@ -67,16 +66,20 @@ export function getNaturalSize(measure: makerjs.IMeasureWithCenter) {
 
 export function renderOptions(view: ViewState, measurement: makerjs.IMeasureWithCenter | null) {
     var fontSize = 2
+    var flowSize = 2
     if (measurement) {
         const size = getNaturalSize(measurement)
         const minSize = Math.min(size[0], size[1])
         fontSize = 1 / 25 * minSize
+        flowSize = 1 / 100 * minSize
     }
+
+    fontSize = 14
 
     return {
         origin: view.origin,
         annotate: true,
-        flow: { size: 8 },
+        flow: { size: flowSize },
         svgAttrs: { "id": 'drawing' },
         fontSize: fontSize + 'px',
         useSvgPathOnly: false
