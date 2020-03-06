@@ -74,8 +74,6 @@ export function renderOptions(view: ViewState, measurement: makerjs.IMeasureWith
         flowSize = 1 / 100 * minSize
     }
 
-    fontSize = 14
-
     return {
         origin: view.origin,
         annotate: true,
