@@ -11,38 +11,40 @@ const options = {
 	order: ['navigator'],
 };
 
-i18n
-	.use(LangDetector)
-	.use(initReactI18next)
-	.init({
-	resources: {
-		// Use official country code
-		// See: https://www.metamodpro.com/browser-language-codes
-		en: {
-			translations: lang.en,
-		},
-		de: {
-			translations: lang.de
-		}
-	},
+if (i18n) {
+	i18n.use(LangDetector)
+		.use(initReactI18next)
+		.init({
+			resources: {
+				// Use official country code
+				// See: https://www.metamodpro.com/browser-language-codes
+				en: {
+					translations: lang.en,
+				},
+				de: {
+					translations: lang.de
+				}
+			},
 
-	fallbackLng: "en",
-	debug: process.env.NODE_ENV === 'development',
+			fallbackLng: "en",
+			debug: process.env.NODE_ENV === 'development',
 
-	ns: ["translations"],
-	defaultNS: "translations",
-	keySeparator: false,
+			ns: ["translations"],
+			defaultNS: "translations",
+			keySeparator: false,
 
-	interpolation: {
-		escapeValue: false,
-		formatSeparator: ",",
-	},
+			interpolation: {
+				escapeValue: false,
+				formatSeparator: ",",
+			},
 
-	react: {
-		wait: false
-	},
+			react: {
+				wait: false
+			},
 
-	detection: options
-});
+			detection: options
+		});
+}
+
 
 export default i18n;

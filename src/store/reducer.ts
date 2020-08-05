@@ -32,10 +32,14 @@ export default (state: RootState, action: ActionType) => {
                 model: model && isMakerModel(model) ? model : null, 
                 svgNode: svgNode 
             }
+
             const fittingState = { ...state, content: newContent }
+            // don't refit natural scale if we already had a previous model, so that the view doesn't change
+            const needsRefit = state.content.model === null
+
             return {
                 ...state,
-                view: state.options.fitOnScreen ? screenFit(fittingState) : naturalFit(fittingState),
+                view: state.options.fitOnScreen ? screenFit(fittingState) : (needsRefit ? naturalFit(fittingState) : state.view),
                 content: newContent
             }
         case 'TOGGLE_FIT_SCREEN':
