@@ -36,18 +36,18 @@ function App() {
           onChange={handleSmileSwitch}
         >
           <ToggleButton value={3}>
-            😄
+            <span role="img" aria-label="Laugh">😄</span>
           </ToggleButton>
           <ToggleButton value={0.5}>
-            🙂
+            <span role="img" aria-label="Laugh">🙂</span>
           </ToggleButton>
         </ToggleButtonGroup>
         <Slider
-            onChange={handleSliderMoved}
-            value={smileSpan}
-            valueLabelDisplay="auto"
-            min={0}
-            max={90}
+          onChange={handleSliderMoved}
+          value={smileSpan}
+          valueLabelDisplay="auto"
+          min={0}
+          max={90}
         />
       </div>
     </div>
