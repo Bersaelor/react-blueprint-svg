@@ -39,7 +39,7 @@ if (i18n) {
 			},
 
 			react: {
-				wait: false
+				useSuspense: true
 			},
 
 			detection: options
